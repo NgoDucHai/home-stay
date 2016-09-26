@@ -2,10 +2,10 @@
 
 namespace App\HomeStay\Apartment;
 
-
+use App\HomeStay\GeometryDataType;
 use Illuminate\Contracts\Support\Arrayable;
 
-class Location implements Arrayable
+class Location implements Arrayable, GeometryDataType
 {
     protected $lat;
 
@@ -26,5 +26,13 @@ class Location implements Arrayable
     public function toArray()
     {
         return [$this->lat, $this->lng];
+    }
+
+    /**
+     * @return \Illuminate\Database\Query\Expression
+     */
+    public function toSql()
+    {
+        return \DB::raw("GeomFromText('POINT({$this->lat} {$this->lng})')");
     }
 }

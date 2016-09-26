@@ -14,6 +14,21 @@ class Apartment
     protected $location;
 
     /**
+     * @var integer
+     */
+    private $id;
+
+    /**
+     * @var integer
+     */
+    private $capacityFrom;
+
+    /**
+     * @var integer
+     */
+    private $capacityTo;
+
+    /**
      * Apartment constructor.
      * @param Location $location
      */
@@ -36,5 +51,38 @@ class Apartment
     public function owner()
     {
 
+    }
+
+    public function setCapacity($from = null, $to = null)
+    {
+        $this->capacityFrom = $from;
+        $this->capacityTo   = $to;
+
+        return $this;
+    }
+
+    public function getCapacityFrom()
+    {
+        return $this->capacityFrom;
+    }
+
+    public function getCapacityTo()
+    {
+        return $this->capacityTo;
+    }
+
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    /**
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
     }
 }

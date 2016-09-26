@@ -2,12 +2,11 @@
 
 namespace App\HomeStay\Apartment;
 
-class ApartmentSearchCondition
+
+interface ApartmentSearchCondition
 {
-
-    public function query()
-    {
-
-    }
-
+    /**
+     * @return \Illuminate\Database\Query\Builder
+     */
+    public function getQuery();
 }
