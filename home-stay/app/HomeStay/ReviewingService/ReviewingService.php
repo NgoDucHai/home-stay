@@ -3,18 +3,13 @@
 namespace App\HomeStay\ReviewingService;
 
 
+use App\HomeStay\Apartment\Apartment;
+use App\User;
+
 class ReviewingService
 {
-
-    /**
-     * @param $rawDataReview
-     *
-     * @return Review
-     */
-    public function factory($rawDataReview)
+    public function review(User $reviewer, Apartment $apartment, Review $review)
     {
 
     }
-
-    
 }

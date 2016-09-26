@@ -3,20 +3,12 @@
 namespace App\HomeStay\Apartment;
 
 
+use App\HomeStay\SearchService\SearchCondition;
+
 class ApartmentRepository
 {
-    public function post(Apartment $apartment)
+    public function find(SearchCondition $condition)
     {
-        
-    }
 
-    public function delete(Apartment $apartment)
-    {
-        
-    }
-
-    public function edit(Apartment $apartment)
-    {
-        
     }
 }

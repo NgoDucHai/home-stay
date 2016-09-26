@@ -3,12 +3,28 @@
 namespace App\HomeStay\ReviewingService;
 
 
+/**
+ * Class Comment
+ * @package App\HomeStay\ReviewingService
+ */
 class Comment
 {
-    protected $content;
+    /**
+     * @var string
+     */
+    private $content;
 
     /**
-     * @return mixed
+     * Comment constructor.
+     * @param string $content
+     */
+    public function __construct($content)
+    {
+        $this->content = $content;
+    }
+
+    /**
+     * @return string
      */
     public function getContent()
     {
@@ -16,12 +32,10 @@ class Comment
     }
 
     /**
-     * @param mixed $content
+     * @return string
      */
-    public function setContent($content)
+    public function __toString()
     {
-        $this->content = $content;
+        return $this->getContent();
     }
-
-    
 }

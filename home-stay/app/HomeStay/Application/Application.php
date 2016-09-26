@@ -2,53 +2,40 @@
 
 namespace App\HomeStay\Application;
 
-
 use App\HomeStay\Apartment\Apartment;
 use App\User;
 
+/**
+ * Class Application
+ * @package App\HomeStay\Application
+ */
 class Application
 {
     /**
-     * @var Apartment
-     */
-    protected $apartment;
-    /**
      * @var User
      */
-    protected $applier;
+    private $applicatant;
 
     /**
-     * @return Apartment
+     * @var Apartment
      */
-    public function getApartment()
-    {
-        return $this->apartment;
-    }
+    private $apartment;
 
     /**
+     * @var string
+     */
+    private $state;
+
+    /**
+     * Application constructor.
+     * @param User $applicatant
      * @param Apartment $apartment
+     * @param string $state
      */
-    public function setApartment($apartment)
+    public function __construct(User $applicatant, Apartment $apartment, $state = ApplicationState::PENDING)
     {
+        $this->applicatant = $applicatant;
         $this->apartment = $apartment;
+        $this->state = $state;
     }
-
-    /**
-     * @return User
-     */
-    public function getApplier()
-    {
-        return $this->applier;
-    }
-
-    /**
-     * @param User $applier
-     */
-    public function setApplier($applier)
-    {
-        $this->applier = $applier;
-    }
-
-
-
 }

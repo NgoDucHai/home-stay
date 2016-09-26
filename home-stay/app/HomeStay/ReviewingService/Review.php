@@ -2,95 +2,35 @@
 
 namespace App\HomeStay\ReviewingService;
 
-
 use App\HomeStay\Apartment\Apartment;
 use App\User;
-use Illuminate\Database\Eloquent\Model;
 
-class Review extends Model
+/**
+ * Class Review
+ * @package App\HomeStay\ReviewingService
+ */
+class Review
 {
     /**
      * @var Rating
      */
-    protected $rate;
+    protected $rating;
 
     /**
      * @var Comment
      */
     protected $comment;
 
-    /**
-     * @var User
-     */
-    protected $reviewer;
 
     /**
-     * @var Apartment
-     */
-    protected $reviewedApartment;
-
-    /**
-     * @return Rating
-     */
-    public function getRate()
-    {
-        return $this->rate;
-    }
-
-    /**
-     * @param Rating $rate
-     */
-    public function setRate($rate)
-    {
-        $this->rate = $rate;
-    }
-
-    /**
-     * @return Comment
-     */
-    public function getComment()
-    {
-        return $this->comment;
-    }
-
-    /**
+     * Review constructor.
+     *
+     * @param Rating $rating
      * @param Comment $comment
      */
-    public function setComment($comment)
+    public function __construct(Rating $rating, Comment $comment)
     {
-        $this->comment = $comment;
+        $this->rating    = $rating;
+        $this->comment   = $comment;
     }
-
-    /**
-     * @return User
-     */
-    public function getReviewer()
-    {
-        return $this->reviewer;
-    }
-
-    /**
-     * @param User $reviewer
-     */
-    public function setReviewer($reviewer)
-    {
-        $this->reviewer = $reviewer;
-    }
-
-    /**
-     * @return Apartment
-     */
-    public function getReviewedApartment()
-    {
-        return $this->reviewedApartment;
-    }
-
-    /**
-     * @param Apartment $reviewedApartment
-     */
-    public function setReviewedApartment($reviewedApartment)
-    {
-        $this->reviewedApartment = $reviewedApartment;
-    }
-
 }

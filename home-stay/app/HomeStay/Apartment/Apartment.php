@@ -2,14 +2,39 @@
 
 namespace App\HomeStay\Apartment;
 
+/**
+ * Class Apartment
+ * @package App\HomeStay\Apartment
+ */
 class Apartment
 {
-    protected $title;
-    protected $description;
+    /**
+     * @var Location
+     */
     protected $location;
-    protected $address;
-    protected $price;
-    protected $owner;
 
+    /**
+     * Apartment constructor.
+     * @param Location $location
+     */
+    public function __construct(Location $location)
+    {
+        $this->location = $location;
+    }
 
+    /**
+     *
+     */
+    public function reviews()
+    {
+
+    }
+
+    /**
+     *
+     */
+    public function owner()
+    {
+
+    }
 }

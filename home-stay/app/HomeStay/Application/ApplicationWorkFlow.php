@@ -2,36 +2,45 @@
 
 namespace App\HomeStay\Application;
 
-
 use App\HomeStay\Apartment\Apartment;
 use App\User;
+
+/**
+ * Class ApplicationWorkFlow
+ * @package App\HomeStay\Application
+ */
 class ApplicationWorkFlow
 {
-    public function __construct()
-    {
-
-    }
-
     /**
      * @param User $user
      * @param Apartment $apartment
-     * @return Application
      */
     public function make(User $user, Apartment $apartment)
     {
-        return new Application();
     }
 
+    /**
+     * @param Application $application
+     * @return Application
+     */
     public function accept(Application $application)
     {
         
     }
 
+    /**
+     * @param Application $application
+     * @return Application
+     */
     public function cancel(Application $application)
     {
         
     }
 
+    /**
+     * @param Application $application
+     * @return Application
+     */
     public function deal(Application $application)
     {
 
@@ -39,8 +48,7 @@ class ApplicationWorkFlow
 
     /**
      * @param User $user
-     *
-     * @return boolean
+     * @return bool
      */
     public function canAccept(User $user)
     {

@@ -1,27 +1,35 @@
 <?php
 
 namespace App\HomeStay\ReviewingService;
+use App\HomeStay\Numerable;
 
-
-class Rating
+/**
+ * Class Rating
+ * @package App\HomeStay\ReviewingService
+ */
+class Rating implements Numerable
 {
+    /**
+     * @var int
+     */
     protected $value;
 
     /**
-     * @return mixed
+     * Rating constructor.
+     * @param int $value
      */
-    public function getValue()
-    {
-        return $this->value;
-    }
-
-    /**
-     * @param mixed $value
-     */
-    public function setValue($value)
+    public function __construct($value)
     {
         $this->value = $value;
     }
 
-    
+    public function getValue()
+    {
+
+    }
+
+    public function toNumber()
+    {
+
+    }
 }
