@@ -109,6 +109,7 @@ class ApartmentNearbySearchCondition implements ApartmentSearchCondition
             ->where(\DB::raw('Y(location)'), '<', $boundary['maxLng'])
         ;
 
+        // @TODO using haversine
         return $query;
     }
 }

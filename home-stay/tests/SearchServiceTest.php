@@ -71,11 +71,10 @@ class SearchServiceTest extends TestCase
         ;
 
         $result = $this->repository->find($condition);
-        dd($result);
         $this->assertEquals(1, $result->count());
         $foundApartment = $result->first();
 
-        $this->assertEquals(3, $foundApartment->getId());
+        $this->assertEquals(1, $foundApartment->getId());
         $this->assertLessThan(3, $foundApartment->getCapacityFrom());
         $this->assertGreaterThan(5, $foundApartment->getCapacityTo());
     }
