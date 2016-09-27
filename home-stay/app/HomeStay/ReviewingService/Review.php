@@ -33,4 +33,14 @@ class Review
         $this->rating    = $rating;
         $this->comment   = $comment;
     }
+
+    public function getRatingPoint()
+    {
+        return $this->rating->toNumber();
+    }
+
+    public function getCommentContent()
+    {
+        return $this->comment->getContent();
+    }
 }

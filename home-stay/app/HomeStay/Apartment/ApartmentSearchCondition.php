@@ -3,10 +3,12 @@
 namespace App\HomeStay\Apartment;
 
 
+use Illuminate\Database\Query\Builder;
+
 interface ApartmentSearchCondition
 {
     /**
-     * @return \Illuminate\Database\Query\Builder
+     * @param Builder $query
      */
-    public function getQuery();
+    public function decorateQuery(Builder $query);
 }

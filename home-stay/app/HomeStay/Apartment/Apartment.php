@@ -40,6 +40,7 @@ class Apartment
     public function __construct(Location $location)
     {
         $this->location = $location;
+
     }
 
     /**

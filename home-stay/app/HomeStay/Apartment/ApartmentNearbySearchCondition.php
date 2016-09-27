@@ -3,6 +3,7 @@
 namespace App\HomeStay\Apartment;
 
 use App\EarthGeometry\Earth;
+use Illuminate\Database\Query\Builder;
 
 /**
  * Class ApartmentNearbySearchCondition
@@ -79,12 +80,10 @@ class ApartmentNearbySearchCondition implements ApartmentSearchCondition
     }
 
     /**
-     * @return \Illuminate\Database\Query\Builder
+     * @param $query Builder
      */
-    public function getQuery()
+    public function decorateQuery(Builder $query)
     {
-        $query = \DB::connection()->table('apartments')
-            ->select(array_merge(['*'], Location::toSelectFields('location')));
 
         if ($this->availabelFrom) {
             $query->where('available_from', '<', $this->availabelFrom->format('Y-m-d H:i:s'));
@@ -108,8 +107,5 @@ class ApartmentNearbySearchCondition implements ApartmentSearchCondition
             ->where(\DB::raw('Y(location)'), '>', $boundary['minLng'])
             ->where(\DB::raw('Y(location)'), '<', $boundary['maxLng'])
         ;
-
-        // @TODO using haversine
-        return $query;
     }
 }

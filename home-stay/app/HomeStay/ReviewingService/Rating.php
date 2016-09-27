@@ -25,11 +25,11 @@ class Rating implements Numerable
 
     public function getValue()
     {
-
+        return $this->value;
     }
 
     public function toNumber()
     {
-
+        return $this->value;
     }
 }

@@ -3,13 +3,14 @@
 namespace App\HomeStay\Apartment;
 
 
+use Illuminate\Database\Query\Builder;
+
 class ApartmentAreaSearchCondition implements ApartmentSearchCondition
 {
     private $availableFrom;
     private $availableTo;
     private $capacityFrom;
     private $capacityTo;
-    private $center;
 
     /**
      * @var \DateTime
@@ -20,6 +21,7 @@ class ApartmentAreaSearchCondition implements ApartmentSearchCondition
      * @var \DateTime
      */
     private $availabelTo;
+
     /**
      * @var Area
      */
@@ -47,13 +49,9 @@ class ApartmentAreaSearchCondition implements ApartmentSearchCondition
         $this->city = $city->city;
     }
 
-    /**
-     *@return \Illuminate\Database\Query\Builder
-     */
-    public function getQuery()
+
+    public function decorateQuery(Builder $query)
     {
-        $query =  \DB::connection()->table('apartments')
-            ->select(array_merge(['*'], Location::toSelectFields('location')));
         if ($this->availabelFrom) {
             $query->where('available_from', '<', $this->availabelFrom->format('Y-m-d H:i:s'));
         }
@@ -73,6 +71,5 @@ class ApartmentAreaSearchCondition implements ApartmentSearchCondition
         if( $this->city){
             $query->where('city', 'LIKE', $this->city);
         }
-        return $query;
     }
 }
