@@ -14,7 +14,7 @@ class Area
      */
     public function __construct($city)
     {
-
+        $this->city = $city;
         return $this;
     }
 

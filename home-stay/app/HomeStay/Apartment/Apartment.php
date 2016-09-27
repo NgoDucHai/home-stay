@@ -29,6 +29,11 @@ class Apartment
     private $capacityTo;
 
     /**
+     * @var string
+     */
+    private $city;
+
+    /**
      * Apartment constructor.
      * @param Location $location
      */
@@ -75,6 +80,12 @@ class Apartment
     {
         $this->id = $id;
 
+        return $this;
+    }
+
+    public function setCity($city)
+    {
+        $this->city = $city;
         return $this;
     }
 

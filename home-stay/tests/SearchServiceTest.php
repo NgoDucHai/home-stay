@@ -6,6 +6,7 @@ use App\HomeStay\Apartment\ApartmentNearbySearchCondition;
 use App\HomeStay\Apartment\ApartmentRepository;
 use App\HomeStay\Apartment\Area;
 use App\HomeStay\Apartment\Location;
+use Carbon\Carbon;
 
 class SearchServiceTest extends TestCase
 {
@@ -19,17 +20,15 @@ class SearchServiceTest extends TestCase
         parent::setUp();
 
         $this->repository = new ApartmentRepository();
-
         \DB::table('apartments')->truncate();
 
 
         \DB::table('apartments')->insert([
-            ['available_from' => \Carbon\Carbon::today()->subDays(3)->format('Y-m-d H:i:s'), 'available_to' => \Carbon\Carbon::today()->subDays(2)->format('Y-m-d H:i:s'), 'capacity_from' => 3, 'capacity_to' => 5, 'location' => with(new Location(1, 2))->toSql()],
-            ['available_from' => \Carbon\Carbon::today()->subDays(2)->format('Y-m-d H:i:s'), 'available_to' => \Carbon\Carbon::today()->addDays(2)->format('Y-m-d H:i:s'), 'capacity_from' => 1, 'capacity_to' => 1, 'location' => with(new Location(1, 2))->toSql()],
-            ['available_from' => \Carbon\Carbon::today()->subDays(2)->format('Y-m-d H:i:s'), 'available_to' => \Carbon\Carbon::today()->addDays(2)->format('Y-m-d H:i:s'), 'capacity_from' => 2, 'capacity_to' => 6, 'location' => with(new Location(1, 2))->toSql()]
+            ['available_from' => Carbon::today()->subDays(3)->format('Y-m-d H:i:s'), 'available_to' => Carbon::today()->subDays(2)->format('Y-m-d H:i:s'), 'capacity_from' => 2, 'capacity_to' => 6, 'location' => with(new Location(1, 2))->toSql(), 'city' => 'Bac Giang'],
+            ['available_from' => Carbon::today()->subDays(2)->format('Y-m-d H:i:s'), 'available_to' => Carbon::today()->addDays(2)->format('Y-m-d H:i:s'), 'capacity_from' => 1, 'capacity_to' => 1, 'location' => with(new Location(1, 2))->toSql(), 'city' => 'Ho Chi Minh'],
+            ['available_from' => Carbon::today()->subDays(2)->format('Y-m-d H:i:s'), 'available_to' => Carbon::today()->addDays(2)->format('Y-m-d H:i:s'), 'capacity_from' => 2, 'capacity_to' => 6, 'location' => with(new Location(21.217803, 105.820313))->toSql(), 'city' => 'Ha Noi']
         ]);
 
-        dd();
     }
 
     public function tearDown()
@@ -41,15 +40,16 @@ class SearchServiceTest extends TestCase
 
     public function testNearbySearchWithDefinedCondition()
     {
-        $condition = new ApartmentNearbySearchCondition(new Location(123, 123), 1000);
+
+
+        $condition = new ApartmentNearbySearchCondition(new Location(20.988929,105.872498), 100);
 
         $condition
-            ->availableIn(\Carbon\Carbon::yesterday(), \Carbon\Carbon::today())
+            ->availableIn(Carbon::yesterday(), Carbon::today())
             ->hasCapacityFrom(3, 5)
         ;
 
         $result = $this->repository->find($condition);
-
         $this->assertEquals(1, $result->count());
 
         /** @var Apartment $foundApartment */
@@ -60,14 +60,23 @@ class SearchServiceTest extends TestCase
         $this->assertGreaterThan(5, $foundApartment->getCapacityTo());
     }
 
-//    public function testAreaSearch()
-//    {
-//        $condition = new ApartmentAreaSearchCondition();
-//
-//        $condition
-//            ->availableIn(new DateTime(), new DateTime())
-//            ->hasCapacityFrom(3, 5)
-//            ->in(new Area('Hanoi'))
-//        ;
-//    }
+    public function testAreaSearch()
+    {
+        $condition = new ApartmentAreaSearchCondition();
+
+        $condition
+            ->availableIn(Carbon::yesterday(), Carbon::today())
+            ->hasCapacityFrom(3, 5)
+            ->in(new Area('Bac Giang'));
+        ;
+
+        $result = $this->repository->find($condition);
+        dd($result);
+        $this->assertEquals(1, $result->count());
+        $foundApartment = $result->first();
+
+        $this->assertEquals(3, $foundApartment->getId());
+        $this->assertLessThan(3, $foundApartment->getCapacityFrom());
+        $this->assertGreaterThan(5, $foundApartment->getCapacityTo());
+    }
 }

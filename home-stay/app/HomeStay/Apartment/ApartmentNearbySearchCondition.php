@@ -2,6 +2,8 @@
 
 namespace App\HomeStay\Apartment;
 
+use App\EarthGeometry\Earth;
+
 /**
  * Class ApartmentNearbySearchCondition
  * @package App\HomeStay\Apartment
@@ -81,7 +83,8 @@ class ApartmentNearbySearchCondition implements ApartmentSearchCondition
      */
     public function getQuery()
     {
-        $query = \DB::connection()->table('apartments');
+        $query = \DB::connection()->table('apartments')
+            ->select(array_merge(['*'], Location::toSelectFields('location')));
 
         if ($this->availabelFrom) {
             $query->where('available_from', '<', $this->availabelFrom->format('Y-m-d H:i:s'));
@@ -95,9 +98,16 @@ class ApartmentNearbySearchCondition implements ApartmentSearchCondition
             $query->where('capacity_from', '<', $this->capacityFrom);
         }
 
-        if ($this->availabelTo) {
+        if ($this->capacityTo) {
             $query->where('capacity_to', '>', $this->capacityTo);
         }
+        $boundary = Earth::boundary($this->center->lat(), $this->center->lng(), $this->radius);
+        $query
+            ->where(\DB::raw('X(location)'), '>', $boundary['minLat'])
+            ->where(\DB::raw('X(location)'), '<', $boundary['maxLat'])
+            ->where(\DB::raw('Y(location)'), '>', $boundary['minLng'])
+            ->where(\DB::raw('Y(location)'), '<', $boundary['maxLng'])
+        ;
 
         return $query;
     }

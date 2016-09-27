@@ -13,12 +13,12 @@ class ApartmentRepository
     public function find(ApartmentSearchCondition $condition)
     {
         return new Collection(array_map(function ($rawApartment) {
-
-            $apartment = new Apartment(new Location(1, 1));
+            $apartment = new Apartment(new Location($rawApartment->lat, $rawApartment->lng));
 
             return $apartment
                 ->setId($rawApartment->id)
                 ->setCapacity($rawApartment->capacity_from, $rawApartment->capacity_to)
+                ->setCity($rawApartment->city)
             ;
         }, $condition->getQuery()->get()));
     }
