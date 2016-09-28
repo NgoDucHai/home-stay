@@ -32,10 +32,17 @@ class ReviewingServiceTest extends TestCase
         \DB::table('users')->truncate();
         \DB::table('reviews')->truncate();
 
+
         \DB::table('apartments')->insert([
             ['available_from' => Carbon::today()->subDays(3)->format('Y-m-d H:i:s'), 'available_to' => Carbon::today()->subDays(2)->format('Y-m-d H:i:s'), 'capacity_from' => 2, 'capacity_to' => 6, 'location' => with(new Location(1, 2))->toSql(), 'city' => 'Bac Giang'],
             ['available_from' => Carbon::today()->subDays(2)->format('Y-m-d H:i:s'), 'available_to' => Carbon::today()->addDays(2)->format('Y-m-d H:i:s'), 'capacity_from' => 1, 'capacity_to' => 1, 'location' => with(new Location(1, 2))->toSql(), 'city' => 'Ho Chi Minh'],
             ['available_from' => Carbon::today()->subDays(2)->format('Y-m-d H:i:s'), 'available_to' => Carbon::today()->addDays(2)->format('Y-m-d H:i:s'), 'capacity_from' => 2, 'capacity_to' => 6, 'location' => with(new Location(21.217803, 105.820313))->toSql(), 'city' => 'Ha Noi']
+        ]);
+
+        \DB::table('reviews')->insert([
+            ['user_id' => 1, 'apartment_id' => 1, 'rate' => 3, 'comment' => 'say something'],
+            ['user_id' => 1, 'apartment_id' => 1, 'rate' => 5, 'comment' => 'say something1'],
+            ['user_id' => 2, 'apartment_id' => 2, 'rate' => 5, 'comment' => 'say something3'],
         ]);
 
         \DB::table('users')->insert([
@@ -67,12 +74,23 @@ class ReviewingServiceTest extends TestCase
         $apartment      = $this->repository->get(1);
 
         /** @var Review $review */
-        $review         = new Review(new Rating(3), new Comment('aaa'));
-
+        $review         = new Review($reviewer, $apartment);
         /** @var ReviewingService $reviewService */
         $reviewService  = new ReviewingService();
 
-        $reviewService->review($reviewer, $apartment, $review);
-        $this->seeInDatabase('reviews', ['rate' => 3, 'comment' => 'aaa']);
+        $reviewService->review($review);
+        $this->seeInDatabase('reviews', ['rate' => 3, 'comment' => '']);
+    }
+
+    public function testGetReviewByApartmentID()
+    {
+        /** @var Apartment $apartment */
+        $apartment = $this->repository->get(1);
+
+        $reviewService = new ReviewingService();
+
+        $result = $reviewService->getReviewByApartmentId($apartment->getId());
+        $this->assertEquals(1, $result[0]->id);
+        $this->assertEquals(5, $result[1]->rate);
     }
 }

@@ -3,18 +3,21 @@
 namespace App\HomeStay\ReviewingService;
 
 
-use App\HomeStay\Apartment\Apartment;
-use App\User;
 
 class ReviewingService
 {
-    public function review(User $reviewer, Apartment $apartment, Review $review)
+    public function review(Review $review)
     {
-        \DB::table('reviews')->insert([
-            'user_id' => $reviewer->id,
-            'apartment_id' => $apartment->getId(),
-            'rate' => $review->getRatingPoint(),
-            'comment' => $review->getCommentContent()
-        ]);
+        $reader = new ReviewReader();
+        $rawReview = $reader->read($review);
+        \DB::table('reviews')->insert([$rawReview]);
+    }
+
+    public function getReviewByApartmentId($id)
+    {
+        /** @var Review $rewiews */
+        $reviewRaw = \DB::table('reviews')->where('apartment_id', $id)->get();
+
+        return $reviewRaw;
     }
 }
