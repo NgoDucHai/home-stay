@@ -6,6 +6,13 @@ namespace App\HomeStay\Apartment;
  * Class Apartment
  * @package App\HomeStay\Apartment
  */
+use App\HomeStay\ReviewingService\ReviewingService;
+use App\User;
+
+/**
+ * Class Apartment
+ * @package App\HomeStay\Apartment
+ */
 class Apartment
 {
     /**
@@ -34,13 +41,20 @@ class Apartment
     private $city;
 
     /**
+     * @var User
+     *
+     */
+    protected $owner;
+
+    /**
      * Apartment constructor.
      * @param Location $location
+     * @param User $owner
      */
-    public function __construct(Location $location)
+    public function __construct(Location $location, User $owner)
     {
         $this->location = $location;
-
+        $this->owner    = $owner;
     }
 
     /**
@@ -51,14 +65,12 @@ class Apartment
 
     }
 
+
     /**
-     *
+     * @param null $from
+     * @param null $to
+     * @return self
      */
-    public function owner()
-    {
-
-    }
-
     public function setCapacity($from = null, $to = null)
     {
         $this->capacityFrom = $from;
@@ -67,16 +79,26 @@ class Apartment
         return $this;
     }
 
+    /**
+     * @return int
+     */
     public function getCapacityFrom()
     {
         return $this->capacityFrom;
     }
 
+    /**
+     * @return int
+     */
     public function getCapacityTo()
     {
         return $this->capacityTo;
     }
 
+    /**
+     * @param $id
+     * @return self
+     */
     public function setId($id)
     {
         $this->id = $id;
@@ -84,6 +106,10 @@ class Apartment
         return $this;
     }
 
+    /**
+     * @param $city
+     * @return self
+     */
     public function setCity($city)
     {
         $this->city = $city;
@@ -96,5 +122,13 @@ class Apartment
     public function getId()
     {
         return $this->id;
+    }
+
+    public function getReviewsList()
+    {
+        $reviewingService = new ReviewingService();
+        $reviewList = $reviewingService->getReviewByApartmentId($this->getId());
+
+        return $reviewList;
     }
 }

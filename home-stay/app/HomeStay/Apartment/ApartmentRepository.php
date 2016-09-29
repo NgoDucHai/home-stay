@@ -2,8 +2,13 @@
 
 namespace App\HomeStay\Apartment;
 
+use App\UserFactory;
 use Illuminate\Support\Collection;
 
+/**
+ * Class ApartmentRepository
+ * @package App\HomeStay\Apartment
+ */
 class ApartmentRepository
 {
     /**
@@ -17,9 +22,12 @@ class ApartmentRepository
 
         $rawApartments = $query->get(array_merge(['*'], Location::toSelectFields('location')));
 
-
-        return new Collection(array_map(function ($rawApartment) {
-            $apartment = new Apartment(new Location($rawApartment->lat, $rawApartment->lng));
+        return new Collection(array_map(
+            function ($rawApartment) {
+            $rawOwner = \DB::table('users')->where('id', '=', $rawApartment->user_id)->get();
+            $userFactory = new UserFactory();
+            $owner = $userFactory->factory($rawOwner);
+            $apartment = new Apartment(new Location($rawApartment->lat, $rawApartment->lng), $owner );
 
             return $apartment
                 ->setId($rawApartment->id)
@@ -29,11 +37,18 @@ class ApartmentRepository
         }, $rawApartments));
     }
 
+    /**
+     * @param $id
+     * @return Apartment
+     */
     public function get($id)
     {
         $rawApartment = \DB::table('apartments')->find($id, array_merge(['*'], Location::toSelectFields('location')));
 
-        $apartment = new Apartment(new Location($rawApartment->lat, $rawApartment->lng));
+        $rawOwner = \DB::table('users')->where('id', '=', $rawApartment->user_id)->get();
+        $userFactory = new UserFactory();
+        $owner = $userFactory->factory($rawOwner);
+        $apartment = new Apartment(new Location($rawApartment->lat, $rawApartment->lng), $owner );
 
         return $apartment
             ->setId($rawApartment->id)

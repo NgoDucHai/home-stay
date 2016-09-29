@@ -1,15 +1,13 @@
 <?php
 
-use App\HomeStay\Apartment\Apartment;
-use App\HomeStay\Apartment\ApartmentAreaSearchCondition;
-use App\HomeStay\Apartment\ApartmentNearbySearchCondition;
 use App\HomeStay\Apartment\ApartmentRepository;
-use App\HomeStay\Apartment\Area;
 use App\HomeStay\Apartment\Location;
+use App\HomeStay\ReviewingService\ReviewingService;
 use App\User;
 use Carbon\Carbon;
+use App\HomeStay\Apartment\ApartmentPresenter;
 
-class SearchServiceTest extends TestCase
+class ApartmentDetailTest extends TestCase
 {
     /**
      * @var ApartmentRepository
@@ -61,44 +59,21 @@ class SearchServiceTest extends TestCase
         parent::tearDown();
     }
 
-    public function testNearbySearchWithDefinedCondition()
+    public function testApartmentDetail()
     {
+        /**
+         * @var ApartmentRepository $apartment
+         */
+        $apartment = $this->repository->get(1);
+
+        $reviewService = new ReviewingService();
+
+        $reviewList = $reviewService->getReviewByApartmentId($apartment->getId());
+
+        $owner = User::find($apartment->getId());
+        /** @var ApartmentPresenter $apartmentDetail */
+        $apartmentDetail = new ApartmentPresenter();
 
 
-        $condition = new ApartmentNearbySearchCondition(new Location(20.988929,105.872498), 100);
-
-        $condition
-            ->availableIn(Carbon::yesterday(), Carbon::today())
-            ->hasCapacityFrom(3, 5)
-        ;
-
-        $result = $this->repository->find($condition);
-        $this->assertEquals(1, $result->count());
-
-        /** @var Apartment $foundApartment */
-        $foundApartment = $result->first();
-
-        $this->assertEquals(3, $foundApartment->getId());
-        $this->assertLessThan(3, $foundApartment->getCapacityFrom());
-        $this->assertGreaterThan(5, $foundApartment->getCapacityTo());
-    }
-
-    public function testAreaSearch()
-    {
-        $condition = new ApartmentAreaSearchCondition();
-
-        $condition
-            ->availableIn(Carbon::yesterday(), Carbon::today())
-            ->hasCapacityFrom(3, 5)
-            ->in(new Area('Bac Giang'));
-        ;
-
-        $result = $this->repository->find($condition);
-        $this->assertEquals(1, $result->count());
-        $foundApartment = $result->first();
-
-        $this->assertEquals(1, $foundApartment->getId());
-        $this->assertLessThan(3, $foundApartment->getCapacityFrom());
-        $this->assertGreaterThan(5, $foundApartment->getCapacityTo());
     }
 }
