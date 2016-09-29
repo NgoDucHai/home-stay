@@ -14,9 +14,15 @@ class ApplicationWorkFlow
     /**
      * @param User $user
      * @param Apartment $apartment
+     * @return Application
      */
+
     public function make(User $user, Apartment $apartment)
     {
+        $application = new Application($user, $apartment);
+        $applicationRepo = new ApplicationRepository();
+        $applicationRepo->create($application);
+        return $application;
     }
 
     /**
@@ -25,7 +31,11 @@ class ApplicationWorkFlow
      */
     public function accept(Application $application)
     {
-        
+        $state = ApplicationState::ACCEPTED;
+        /** @var ApplicationState $state */
+        $application->setState($state);
+        $this->updateState($application);
+        return $application;
     }
 
     /**
@@ -34,7 +44,12 @@ class ApplicationWorkFlow
      */
     public function cancel(Application $application)
     {
-        
+        $state = ApplicationState::CANCELLED;
+        /** @var ApplicationState $state */
+        $application->setState($state);
+        $this->updateState($application);
+        return $application;
+
     }
 
     /**
@@ -43,15 +58,22 @@ class ApplicationWorkFlow
      */
     public function deal(Application $application)
     {
-
+        $state = ApplicationState::DEAL;
+        /** @var ApplicationState $state */
+        $application->setState($state);
+        $this->updateState($application);
+        return $application;
     }
 
-    /**
-     * @param User $user
-     * @return bool
-     */
-    public function canAccept(User $user)
+    public function canAccept()
     {
-
     }
+
+    public function updateState(Application $application)
+    {
+        $applicationRepo = new ApplicationRepository();
+        $applicationRepo->updateState($application);
+    }
+
+
 }
