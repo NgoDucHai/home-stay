@@ -3,6 +3,7 @@
 namespace App\HomeStay\Application;
 
 use App\HomeStay\Apartment\Apartment;
+use App\HomeStay\Policies\UserOwnApartmentPolicy;
 use App\User;
 
 /**
@@ -12,68 +13,85 @@ use App\User;
 class ApplicationWorkFlow
 {
     /**
+     * @var UserOwnApartmentPolicy
+     */
+    protected $ownApartmentPolicy;
+
+    /**
+     * ApplicationWorkFlow constructor.
+     * @param UserOwnApartmentPolicy $ownApartmentPolicy
+     */
+    public function __construct(UserOwnApartmentPolicy $ownApartmentPolicy)
+    {
+        $this->ownApartmentPolicy = $ownApartmentPolicy;
+    }
+
+    /**
      * @param User $user
      * @param Apartment $apartment
      * @return Application
      */
-
     public function make(User $user, Apartment $apartment)
     {
-        $application = new Application($user, $apartment);
-        $applicationRepo = new ApplicationRepository();
-        $applicationRepo->create($application);
-        return $application;
+        return with(new Application())
+            ->setApplicant($user)
+            ->setApartment($apartment)
+            ->setState(ApplicationState::PENDING)
+        ;
     }
 
     /**
+     * @param User $performer
      * @param Application $application
-     * @return Application
+     * @throws UnSatisfyApplicationWorkflowException
      */
-    public function accept(Application $application)
+    public function accept(User $performer, Application $application)
     {
-        $state = ApplicationState::ACCEPTED;
-        /** @var ApplicationState $state */
-        $application->setState($state);
-        $this->updateState($application);
-        return $application;
+        if ( ! $this->canAccept($performer, $application))
+        {
+            throw new UnSatisfyApplicationWorkflowException(
+                'User must own the apartment to perform accept action'
+            );
+        }
+
+        $application
+            ->setState(ApplicationState::ACCEPTED)
+            ->save()
+        ;
     }
 
     /**
      * @param Application $application
-     * @return Application
      */
     public function cancel(Application $application)
     {
-        $state = ApplicationState::CANCELLED;
-        /** @var ApplicationState $state */
-        $application->setState($state);
-        $this->updateState($application);
-        return $application;
-
+        $application
+            ->setState(ApplicationState::CANCELLED)
+            ->save()
+        ;
     }
 
     /**
      * @param Application $application
-     * @return Application
      */
     public function deal(Application $application)
     {
-        $state = ApplicationState::DEAL;
-        /** @var ApplicationState $state */
-        $application->setState($state);
-        $this->updateState($application);
-        return $application;
+        $application
+            ->setState(ApplicationState::DEAL)
+            ->save()
+        ;
     }
 
-    public function canAccept()
+    /**
+     * @param User $performer
+     * @param Application $application
+     * @return bool
+     */
+    public function canAccept(User $performer, Application $application)
     {
+        return $this->ownApartmentPolicy->check(
+            $performer->getId(),
+            $application->getApartmentId()
+        );
     }
-
-    public function updateState(Application $application)
-    {
-        $applicationRepo = new ApplicationRepository();
-        $applicationRepo->updateState($application);
-    }
-
-
 }

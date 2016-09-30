@@ -23,11 +23,17 @@ class Rating implements Numerable
         $this->value = $value;
     }
 
+    /**
+     * @return int
+     */
     public function getValue()
     {
         return $this->value;
     }
 
+    /**
+     * @return int
+     */
     public function toNumber()
     {
         return $this->value;

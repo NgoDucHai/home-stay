@@ -25,7 +25,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'id', 'password', 'remember_token',
     ];
 
     /**
@@ -33,59 +33,15 @@ class User extends Authenticatable
      */
     public function getId()
     {
-        return $this->id;
-    }
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
+        return $this->getAttribute('id');
     }
 
     /**
-     * @param string $name
-     * @return self
+     * @param User $user
+     * @return bool
      */
-    public function setName($name)
+    public function isMe(User $user)
     {
-        $this->name = $name;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getEmail()
-    {
-        return $this->email;
-    }
-
-    /**
-     * @param string $email
-     * @return self
-     */
-    public function setEmail($email)
-    {
-        $this->email = $email;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getPassword()
-    {
-        return $this->password;
-    }
-
-    /**
-     * @param string $password
-     * @return self
-     */
-    public function setPassword($password)
-    {
-        $this->password = $password;
-        return $this;
+        return $this->getId() == $user->getId();
     }
 }

@@ -6,8 +6,8 @@ namespace App\HomeStay\Apartment;
  * Class Apartment
  * @package App\HomeStay\Apartment
  */
-use App\HomeStay\ReviewingService\ReviewingService;
 use App\User;
+use Illuminate\Support\Collection;
 
 /**
  * Class Apartment
@@ -19,6 +19,11 @@ class Apartment
      * @var Location
      */
     protected $location;
+
+    /**
+     * @var Collection
+     */
+    protected $reviews;
 
     /**
      * @var integer
@@ -42,7 +47,6 @@ class Apartment
 
     /**
      * @var User
-     *
      */
     protected $owner;
 
@@ -58,13 +62,12 @@ class Apartment
     }
 
     /**
-     *
+     * @return User
      */
-    public function reviews()
+    public function getOwner()
     {
-
+        return $this->owner;
     }
-
 
     /**
      * @param null $from
@@ -80,19 +83,14 @@ class Apartment
     }
 
     /**
-     * @return int
+     * @return int[]
      */
-    public function getCapacityFrom()
+    public function getCapacity()
     {
-        return $this->capacityFrom;
-    }
-
-    /**
-     * @return int
-     */
-    public function getCapacityTo()
-    {
-        return $this->capacityTo;
+        return [
+            $this->capacityFrom,
+            $this->capacityTo
+        ];
     }
 
     /**
@@ -124,11 +122,19 @@ class Apartment
         return $this->id;
     }
 
-    public function getReviewsList()
+    /**
+     * @param Collection $reviews
+     */
+    public function setLatestReviews(Collection $reviews)
     {
-        $reviewingService = new ReviewingService();
-        $reviewList = $reviewingService->getReviewByApartmentId($this->getId());
+        $this->reviews = $reviews;
+    }
 
-        return $reviewList;
+    /**
+     * @return Collection
+     */
+    public function getLatestReviews()
+    {
+        return $this->reviews;
     }
 }

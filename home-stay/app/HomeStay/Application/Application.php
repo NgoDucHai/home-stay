@@ -4,110 +4,52 @@ namespace App\HomeStay\Application;
 
 use App\HomeStay\Apartment\Apartment;
 use App\User;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Application
  * @package App\HomeStay\Application
  */
-class Application
+class Application extends Model
 {
     /**
-     * @var User
-     */
-    private $applicatant;
-
-    /**
-     * @var Apartment
-     */
-    private $apartment;
-
-    /**
-     * @var string
-     */
-    private $state;
-
-
-    /**
-     * @var string
-     */
-    private $id;
-    /**
-     * @return User
-     */
-
-    /**
-     * @return string
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * @param string $id
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
-    public function getApplicatant()
-    {
-        return $this->applicatant;
-    }
-
-    /**
-     * @param User $applicatant
-     */
-    public function setApplicatant($applicatant)
-    {
-        $this->applicatant = $applicatant;
-    }
-
-    /**
-     * @return Apartment
-     */
-    public function getApartment()
-    {
-        return $this->apartment;
-    }
-
-    /**
-     * @param Apartment $apartment
-     */
-    public function setApartment($apartment)
-    {
-        $this->apartment = $apartment;
-    }
-
-    /**
-     * Application constructor.
      * @param User $applicant
-     * @param Apartment $apartment
-     * @param string $state
+     * @return static
      */
-    public function __construct(User $applicant, Apartment $apartment, $state = ApplicationState::PENDING)
+    public function setApplicant(User $applicant)
     {
-        $this->applicatant = $applicant;
-        $this->apartment = $apartment;
-        $this->state = $state;
+        $this->setAttribute('user_id', $applicant->getId());
+
+        return $this;
     }
 
+    /**
+     * @param Apartment $apartment
+     * @return self
+     */
+    public function setApartment(Apartment $apartment)
+    {
+        $this->setAttribute('apartment_id', $apartment->getId());
+
+        return $this;
+    }
+
+    /**
+     *
+     */
+    public function getApartmentId()
+    {
+        $this->getAttribute('apartment_id');
+    }
 
     /**
      * @param string $state
+     * @return self
      */
     public function setState($state)
     {
-        $this->state = $state;
+        $this->setAttribute('state', $state);
+
+        return $this;
     }
-
-    /**
-     * @return string
-     */
-    public function getState()
-    {
-        return $this->state;
-    }
-
-
 }
