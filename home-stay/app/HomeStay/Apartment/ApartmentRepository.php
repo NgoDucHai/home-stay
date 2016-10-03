@@ -2,7 +2,7 @@
 
 namespace App\HomeStay\Apartment;
 
-use Illuminate\Database\MySqlConnection;
+use App\HomeStay\Apartment\ApartmentStorageEngine\Engine;
 use Illuminate\Support\Collection;
 
 /**
@@ -11,12 +11,26 @@ use Illuminate\Support\Collection;
  */
 class ApartmentRepository
 {
-    protected $connection;
+    /**
+     * @var Engine
+     */
+    protected $engine;
 
-    public function __construct(MySqlConnection $connection, ApartmentFactory $apartmentFactory)
+    /**
+     * @var ApartmentFactory
+     */
+    protected $factory;
+
+    /**
+     * ApartmentRepository constructor.
+     *
+     * @param Engine $engine
+     * @param ApartmentFactory $factory
+     */
+    public function __construct(Engine $engine, ApartmentFactory $factory)
     {
-        $this->connection = $connection;
-        $this->apartmentFactory = $apartmentFactory;
+        $this->engine  = $engine;
+        $this->factory = $factory;
     }
 
     /**
@@ -25,12 +39,19 @@ class ApartmentRepository
      */
     public function find(ApartmentSearchCondition $condition)
     {
-        $query = $this->connection->table('apartments');
+        $query = $this->engine->buildQuery();
+
         $condition->decorateQuery($query);
 
-        $rawApartments = $query->get(array_merge(['*'], Location::toSelectFields('location')));
+        return $this->factory->factoryList($query->get());
+    }
 
-        return $this->apartmentFactory->factoryList($rawApartments);
+    /**
+     * @param Apartment $apartment
+     */
+    public function save(Apartment $apartment)
+    {
+        $this->engine->save($apartment);
     }
 
     /**
@@ -39,9 +60,8 @@ class ApartmentRepository
      */
     public function get($id)
     {
-        return $this->apartmentFactory->factory(
-            $this->connection->table('apartments')
-                ->find($id, array_merge(['*'], Location::toSelectFields('location')))
+        return $this->factory->factory(
+            $this->engine->buildQuery()->find($id)
         );
     }
 }

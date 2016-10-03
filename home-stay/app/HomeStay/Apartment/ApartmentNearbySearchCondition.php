@@ -102,10 +102,10 @@ class ApartmentNearbySearchCondition implements ApartmentSearchCondition
         }
         $boundary = Earth::boundary($this->center->lat(), $this->center->lng(), $this->radius);
         $query
-            ->where(\DB::raw('X(location)'), '>', $boundary['minLat'])
-            ->where(\DB::raw('X(location)'), '<', $boundary['maxLat'])
-            ->where(\DB::raw('Y(location)'), '>', $boundary['minLng'])
-            ->where(\DB::raw('Y(location)'), '<', $boundary['maxLng'])
+            ->where($query->getConnection()->raw('X(location)'), '>', $boundary['minLat'])
+            ->where($query->getConnection()->raw('X(location)'), '<', $boundary['maxLat'])
+            ->where($query->getConnection()->raw('Y(location)'), '>', $boundary['minLng'])
+            ->where($query->getConnection()->raw('Y(location)'), '<', $boundary['maxLng'])
         ;
     }
 }

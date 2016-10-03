@@ -2,14 +2,13 @@
 
 namespace App\HomeStay\Apartment;
 
-use App\HomeStay\GeometryDataType;
 use Illuminate\Contracts\Support\Arrayable;
 
 /**
  * Class Location
  * @package App\HomeStay\Apartment
  */
-class Location implements Arrayable, GeometryDataType
+class Location implements Arrayable
 {
     /**
      * @var float
@@ -56,25 +55,5 @@ class Location implements Arrayable, GeometryDataType
     public function lng()
     {
         return $this->lng;
-    }
-
-    /**
-     * @return \Illuminate\Database\Query\Expression
-     */
-    public function toSql()
-    {
-        return \DB::raw("GeomFromText('POINT({$this->lat} {$this->lng})')");
-    }
-
-    /**
-     * @param $geoFieldName
-     * @return float[]
-     */
-    public static function toSelectFields($geoFieldName)
-    {
-        return [
-            \DB::raw("X($geoFieldName) as lat"),
-            \DB::raw("Y($geoFieldName) as lng"),
-        ];
     }
 }
