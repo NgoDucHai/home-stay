@@ -4,7 +4,6 @@ namespace App\HomeStay\Apartment;
 
 
 use App\User;
-use App\UserFactory;
 use Illuminate\Support\Collection;
 
 class ApartmentFactory
@@ -16,6 +15,7 @@ class ApartmentFactory
     public function factory($rawApartment)
     {
         $owner = User::findOrFail($rawApartment->user_id);
+        /** @var User $owner */
         $apartment = new Apartment(new Location($rawApartment->lat, $rawApartment->lng), $owner);
         return $apartment
             ->setId($rawApartment->id)

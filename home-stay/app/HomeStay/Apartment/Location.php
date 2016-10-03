@@ -41,6 +41,7 @@ class Location implements Arrayable
         return [$this->lat, $this->lng];
     }
 
+
     /**
      * @return float
      */

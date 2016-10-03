@@ -35,10 +35,10 @@ class ReviewingService
     public function doReview(User $reviewer, Apartment $apartment, Review $review)
     {
         $this->connection->table('reviews')->insert([
-            'user_id' => $reviewer->getId(),
+            'user_id'      => $reviewer->getId(),
             'apartment_id' => $apartment->getId(),
-            'rate' => $review->getRating()->getValue(),
-            'comment' => $review->getComment()->getContent()
+            'rate'         => $review->getRating()->getValue(),
+            'comment'      => $review->getComment()->getContent()
         ]);
     }
 }

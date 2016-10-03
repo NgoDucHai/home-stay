@@ -8,7 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Application
+ *
  * @package App\HomeStay\Application
+ * @mixin \Eloquent
  */
 class Application extends Model
 {
@@ -39,7 +41,7 @@ class Application extends Model
      */
     public function getApartmentId()
     {
-        $this->getAttribute('apartment_id');
+        return intval($this->getAttribute('apartment_id'));
     }
 
     /**

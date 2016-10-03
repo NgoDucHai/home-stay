@@ -1,18 +1,15 @@
 <?php
 
-use App\HomeStay\Apartment\Apartment;
 use App\HomeStay\Apartment\ApartmentFactory;
 use App\HomeStay\Apartment\ApartmentRepository;
 use App\HomeStay\Apartment\ApartmentStorageEngine\MySqlEngine;
 use App\HomeStay\Apartment\Location;
+use App\HomeStay\Policies\UserOwnApartmentPolicy;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Database\MySqlConnection;
 
-use Mockery as m;
-
-
-class ApartmentDetailTest extends TestCase
+class UserOwnApartmentPolicyTest extends TestCase
 {
     /**
      * @var ApartmentRepository
@@ -20,18 +17,10 @@ class ApartmentDetailTest extends TestCase
     protected $repository;
 
     /**
-     * @var MySqlConnection
-     */
-    protected $connection;
-
-    /**
      * @var User
      */
     protected $user;
-
-    /**
-     * @var MySqlEngine
-     */
+    protected $connection;
     protected $mysqlEngine;
 
     public function setUp()
@@ -51,7 +40,7 @@ class ApartmentDetailTest extends TestCase
         $this->connection->table('apartments')->truncate();
         $this->connection->table('users')->truncate();
         $this->connection->table('reviews')->truncate();
-
+        $this->connection->table('applications')->truncate();
 
         $this->connection->table('apartments')->insert([
             ['available_from' => Carbon::today()->subDays(3)->format('Y-m-d H:i:s'), 'available_to' => Carbon::today()->subDays(2)->format('Y-m-d H:i:s'), 'capacity_from' => 2, 'capacity_to' => 6, 'location' => with($this->mysqlEngine->convertLocationToSql(new Location(1, 2))), 'city' => 'Bac Giang', 'user_id' => 1],
@@ -70,6 +59,13 @@ class ApartmentDetailTest extends TestCase
             ['name' => 'Hai Ngo1', 'email' => 'haingo63941@gmail.com', 'password' => '12345'],
             ['name' => 'Hai Ngo2', 'email' => 'haingo63942@gmail.com', 'password' => '12345'],
         ]);
+
+        $this->connection->table('applications')->insert([
+            ['user_id' => 1, 'apartment_id' => 1, 'state' => 'PENDING'],
+            ['user_id' => 1, 'apartment_id' => 3, 'state' => 'PENDING'],
+            ['user_id' => 2, 'apartment_id' => 2, 'state' => 'PENDING']
+        ]);
+
     }
 
     public function tearDown()
@@ -77,18 +73,17 @@ class ApartmentDetailTest extends TestCase
         $this->connection->table('apartments')->truncate();
         $this->connection->table('users')->truncate();
         $this->connection->table('reviews')->truncate();
+        $this->connection->table('applications')->truncate();
 
         parent::tearDown();
     }
 
-    public function testApartmentDetail()
+    public function testCheckUserOwnApartmentPolicy()
     {
+        $userOwnApartmentPolicy = new UserOwnApartmentPolicy($this->connection);
 
-        $apartment = $this->repository->get(1);
+        $result = $userOwnApartmentPolicy->check(2,3);
 
-        $this->assertInstanceOf(Apartment::class, $apartment);
-
-        $this->assertEquals(1, $apartment->getId());
-        $this->assertEquals(1, $apartment->getOwner()->getId());
+        $this->assertTrue($result);
     }
 }

@@ -6,7 +6,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 /**
  * Class User
+ *
  * @package App
+ * @mixin \Eloquent
  */
 class User extends Authenticatable
 {
@@ -27,6 +29,19 @@ class User extends Authenticatable
     protected $hidden = [
         'id', 'password', 'remember_token',
     ];
+    /**
+     * @var string
+     */
+    protected $name;
+    /**
+     * @var string
+     */
+    protected $email;
+    /**
+     * @var string
+     */
+    protected $password;
+
 
     /**
      * @return int id
@@ -43,5 +58,23 @@ class User extends Authenticatable
     public function isMe(User $user)
     {
         return $this->getId() == $user->getId();
+    }
+
+    public function setName($name)
+    {
+        $this->name = $name;
+        return $this;
+    }
+
+    public function setEmail($email)
+    {
+        $this->email = $email;
+        return $this;
+    }
+
+    public function setPassword($password)
+    {
+        $this->password = $password;
+        return $this;
     }
 }

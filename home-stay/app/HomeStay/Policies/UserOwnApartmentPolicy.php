@@ -2,7 +2,6 @@
 
 namespace App\HomeStay\Policies;
 
-use App\User;
 use Illuminate\Database\MySqlConnection;
 
 class UserOwnApartmentPolicy

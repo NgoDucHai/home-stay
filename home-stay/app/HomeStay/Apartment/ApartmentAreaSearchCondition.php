@@ -7,20 +7,18 @@ use Illuminate\Database\Query\Builder;
 
 class ApartmentAreaSearchCondition implements ApartmentSearchCondition
 {
-    private $availableFrom;
-    private $availableTo;
     private $capacityFrom;
     private $capacityTo;
 
     /**
      * @var \DateTime
      */
-    private $availabelFrom;
+    private $availableFrom;
 
     /**
      * @var \DateTime
      */
-    private $availabelTo;
+    private $availableTo;
 
     /**
      * @var Area
@@ -52,12 +50,12 @@ class ApartmentAreaSearchCondition implements ApartmentSearchCondition
 
     public function decorateQuery(Builder $query)
     {
-        if ($this->availabelFrom) {
-            $query->where('available_from', '<', $this->availabelFrom->format('Y-m-d H:i:s'));
+        if ($this->availableFrom) {
+            $query->where('available_from', '<', $this->availableFrom->format('Y-m-d H:i:s'));
         }
 
-        if ($this->availabelTo) {
-            $query->where('available_to', '>', $this->availabelTo->format('Y-m-d H:i:s'));
+        if ($this->availableTo) {
+            $query->where('available_to', '>', $this->availableTo->format('Y-m-d H:i:s'));
         }
 
         if ($this->capacityFrom) {

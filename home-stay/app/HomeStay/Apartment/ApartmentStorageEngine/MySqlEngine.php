@@ -1,9 +1,8 @@
 <?php
 
-namespace HomeStay\Apartment\ApartmentStorageEngine;
+namespace App\HomeStay\Apartment\ApartmentStorageEngine;
 
 use App\HomeStay\Apartment\Apartment;
-use App\HomeStay\Apartment\ApartmentStorageEngine\Engine;
 use App\HomeStay\Apartment\Location;
 use Illuminate\Database\MySqlConnection;
 use Illuminate\Database\Query\Builder;
