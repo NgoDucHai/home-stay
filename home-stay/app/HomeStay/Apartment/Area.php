@@ -9,6 +9,15 @@ namespace App\HomeStay\Apartment;
 class Area
 {
     /**
+     * @var string $district
+     */
+    protected $district;
+    /**
+     * @var string $street
+     */
+    protected $street;
+
+    /**
      * Area constructor.
      * @param string $city
      */
@@ -24,7 +33,7 @@ class Area
      */
     public function setDistrict($district)
     {
-        // TODO implement logic
+        $this->district = $district;
         return $this;
     }
 
@@ -34,7 +43,7 @@ class Area
      */
     public function setStreet($street)
     {
-        // TODO implement logic
+        $this->street = $street;
         return $this;
     }
 }

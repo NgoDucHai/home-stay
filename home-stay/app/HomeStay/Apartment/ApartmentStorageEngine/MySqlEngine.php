@@ -32,7 +32,28 @@ class MySqlEngine implements Engine
      */
     public function save(Apartment $apartment)
     {
-        // TODO: Implement save() method.
+        $rawDataToSave = [
+            'available_from' => $apartment->getAvailabilities()[0]->format('Y-m-d H:i:s'),
+            'available_to'   => $apartment->getAvailabilities()[1]->format('Y-m-d H:i:s'),
+            'capacity_from'  => $apartment->getCapacity()[0],
+            'capacity_to'    => $apartment->getCapacity()[1],
+            'city'           => $apartment->getCity(),
+            'user_id'        => $apartment->getOwner()->getId(),
+            'location'       => $this->convertLocationToSql($apartment->getLocation()),
+        ];
+
+        if ($apartment->getId())
+        {
+            $rawDataToSave['updated_at'] = with(new \DateTime())->format('Y-m-d H:i:s');
+            $this->connection->table('apartments')->where('id', $apartment->getId())->update($rawDataToSave);
+        }
+        else
+        {
+            $rawDataToSave['created_at'] = with(new \DateTime())->format('Y-m-d H:i:s');
+            $this->connection->table('apartments')->insert($rawDataToSave);
+
+            $apartment->setId($this->connection->getPdo()->lastInsertId());
+        }
     }
 
     /**
@@ -42,11 +63,19 @@ class MySqlEngine implements Engine
     {
         return $this->connection
             ->table('apartments')
-            // TODO must use specific fields
-            ->select(array_merge(['*'], [
+            ->select([
+                'id',
+                'available_from',
+                'available_to',
+                'capacity_from',
+                'capacity_to',
+                'created_at',
+                'updated_at',
+                'city',
+                'user_id',
                 $this->connection->raw("X(location) as lat"),
                 $this->connection->raw("Y(location) as lng"),
-            ]))
+            ])
         ;
     }
 

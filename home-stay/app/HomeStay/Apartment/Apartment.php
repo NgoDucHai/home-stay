@@ -3,7 +3,7 @@
 namespace App\HomeStay\Apartment;
 
 /**
- * Class Apartment
+ * Class Apartmenta
  * @package App\HomeStay\Apartment
  */
 use App\User;
@@ -39,6 +39,16 @@ class Apartment
      * @var integer
      */
     private $capacityTo;
+
+    /**
+     * @var \DateTime
+     */
+    private $availableFrom;
+
+    /**
+     * @var \DateTime
+     */
+    private $availableTo;
 
     /**
      * @var string
@@ -136,5 +146,43 @@ class Apartment
     public function getLatestReviews()
     {
         return $this->reviews;
+    }
+
+    /**
+     * @param \DateTime $from
+     * @param \DateTime $to
+     * @return self
+     */
+    public function setAvailabilities(\DateTime $from = null, \DateTime $to = null)
+    {
+        $this->availableFrom    = $from;
+        $this->availableTo      = $to;
+        return $this;
+    }
+    /**
+     * @return \DateTime[]
+     */
+    public function getAvailabilities()
+    {
+        return [
+            $this->availableFrom,
+            $this->availableTo
+        ];
+    }
+
+    /**
+     * @return string
+     */
+    public function getCity()
+    {
+        return $this->city;
+    }
+
+    /**
+     * @return Location
+     */
+    public function getLocation()
+    {
+        return $this->location;
     }
 }
