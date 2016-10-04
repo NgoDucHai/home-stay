@@ -2,10 +2,13 @@
 
 namespace App\HomeStay\Apartment;
 
-
 use App\User;
 use Illuminate\Support\Collection;
 
+/**
+ * Class ApartmentFactory
+ * @package App\HomeStay\Apartment
+ */
 class ApartmentFactory
 {
     /**
@@ -23,6 +26,10 @@ class ApartmentFactory
             ->setCity($rawApartment->city);
     }
 
+    /**
+     * @param $rawApartments
+     * @return Collection
+     */
     public function factoryList($rawApartments)
     {
         return new Collection(array_map(

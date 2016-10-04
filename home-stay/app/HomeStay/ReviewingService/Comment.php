@@ -2,7 +2,6 @@
 
 namespace App\HomeStay\ReviewingService;
 
-
 /**
  * Class Comment
  * @package App\HomeStay\ReviewingService

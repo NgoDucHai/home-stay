@@ -55,7 +55,7 @@ class ApartmentRepository
     }
 
     /**
-     * @param $id
+     * @param int $id
      * @return Apartment
      */
     public function get($id)

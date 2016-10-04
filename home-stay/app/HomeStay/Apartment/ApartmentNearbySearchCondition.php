@@ -80,6 +80,7 @@ class ApartmentNearbySearchCondition implements ApartmentSearchCondition
     }
 
     /**
+     * @inheritdoc
      * @param $query Builder
      */
     public function decorateQuery(Builder $query)

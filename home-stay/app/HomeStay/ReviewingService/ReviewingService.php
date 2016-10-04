@@ -2,9 +2,9 @@
 
 namespace App\HomeStay\ReviewingService;
 
-use App\HomeStay\Apartment\Apartment;
 use App\User;
-use Illuminate\Database\MySqlConnection;
+use App\HomeStay\Apartment\Apartment;
+use Illuminate\Database\ConnectionInterface;
 
 /**
  * Class ReviewingService
@@ -13,16 +13,16 @@ use Illuminate\Database\MySqlConnection;
 class ReviewingService
 {
     /**
-     * @var MySqlConnection
+     * @var ConnectionInterface
      */
     protected $connection;
 
 
     /**
      * ReviewingService constructor.
-     * @param MySqlConnection $connection
+     * @param ConnectionInterface $connection
      */
-    public function __construct(MySqlConnection $connection)
+    public function __construct(ConnectionInterface $connection)
     {
         $this->connection = $connection;
     }

@@ -170,11 +170,14 @@ return [
         /*
          * IDE Helper
          */
-        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class
+        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
 
         /*
          * Home Stay Service Provider
          */
+        App\HomeStay\Apartment\ApartmentServiceProvider::class,
+        App\HomeStay\Application\ApplicationWorkFlowServiceProvider::class,
+        App\HomeStay\ReviewingService\ReviewingServiceProvider::class,
 
 
     ],

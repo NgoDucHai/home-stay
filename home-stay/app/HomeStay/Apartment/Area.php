@@ -24,7 +24,7 @@ class Area
      */
     public function setDistrict($district)
     {
-
+        // TODO implement logic
         return $this;
     }
 
@@ -34,7 +34,7 @@ class Area
      */
     public function setStreet($street)
     {
-
+        // TODO implement logic
         return $this;
     }
 }

@@ -70,8 +70,8 @@ class Apartment
     }
 
     /**
-     * @param null $from
-     * @param null $to
+     * @param int $from
+     * @param int $to
      * @return self
      */
     public function setCapacity($from = null, $to = null)
@@ -94,7 +94,7 @@ class Apartment
     }
 
     /**
-     * @param $id
+     * @param int $id
      * @return self
      */
     public function setId($id)

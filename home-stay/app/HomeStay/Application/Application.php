@@ -2,8 +2,8 @@
 
 namespace App\HomeStay\Application;
 
-use App\HomeStay\Apartment\Apartment;
 use App\User;
+use App\HomeStay\Apartment\Apartment;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -37,7 +37,7 @@ class Application extends Model
     }
 
     /**
-     *
+     * @return int
      */
     public function getApartmentId()
     {

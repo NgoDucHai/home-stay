@@ -2,7 +2,8 @@
 
 namespace App\HomeStay\Application;
 
-class UnSatisfyApplicationWorkflowException extends \Exception
-{
-
-}
+/**
+ * Class UnSatisfyApplicationWorkflowException
+ * @package App\HomeStay\Application
+ */
+class UnSatisfyApplicationWorkflowException extends \Exception { }
