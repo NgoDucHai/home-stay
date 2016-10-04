@@ -27,8 +27,8 @@ class Location implements Arrayable
      */
     public function __construct($lat, $lng)
     {
-        $this->lat = $lat;
-        $this->lng = $lng;
+        $this->lat = floatval($lat);
+        $this->lng = floatval($lng);
     }
 
     /**

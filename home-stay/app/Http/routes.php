@@ -8,8 +8,5 @@ Route::group(['middleware' => ['web']], function () {
         return view('welcome');
     });
 
-    Route::get('/add/{number1}/{number2}', 'Home@add');
-    Route::get('/pow/{number1}/{number2}', 'Home@pow');
-
-
+    Route::get('/apartments/{id}', 'ApartmentController@index');
 });

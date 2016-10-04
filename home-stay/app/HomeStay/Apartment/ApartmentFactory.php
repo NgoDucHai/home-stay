@@ -3,6 +3,7 @@
 namespace App\HomeStay\Apartment;
 
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Support\Collection;
 
 /**
@@ -17,13 +18,19 @@ class ApartmentFactory
      */
     public function factory($rawApartment)
     {
-        $owner = User::findOrFail($rawApartment['user_id']);
+        $owner = User::findOrFail($rawApartment->user_id);
         /** @var User $owner */
         $apartment = new Apartment(new Location($rawApartment->lat, $rawApartment->lng), $owner);
         return $apartment
-            ->setId($rawApartment->id)
-            ->setCapacity($rawApartment->capacity_from, $rawApartment->capacity_to)
-            ->setCity($rawApartment->city);
+            ->setId(intval($rawApartment->id))
+            ->setCapacity(intval($rawApartment->capacity_from), intval($rawApartment->capacity_to))
+            ->setAvailabilities(Carbon::createFromFormat('Y-m-d H:i:s', $rawApartment->available_from), Carbon::createFromFormat('Y-m-d H:i:s', $rawApartment->available_to))
+            ->setCity($rawApartment->city)
+            ->setName($rawApartment->name)
+            ->setDescription($rawApartment->description)
+            ->setImages(json_decode($rawApartment->images))
+            ->setPrice(floatval($rawApartment->price))
+        ;
     }
 
     /**

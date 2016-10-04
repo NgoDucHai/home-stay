@@ -40,6 +40,10 @@ class MySqlEngine implements Engine
             'city'           => $apartment->getCity(),
             'user_id'        => $apartment->getOwner()->getId(),
             'location'       => $this->convertLocationToSql($apartment->getLocation()),
+            'name'           => $apartment->getName(),
+            'description'    => $apartment->getDescription(),
+            'images'         => json_encode($apartment->getImages()),
+            'price'          => $apartment->getPrice()
         ];
 
         if ($apartment->getId())
@@ -73,6 +77,10 @@ class MySqlEngine implements Engine
                 'updated_at',
                 'city',
                 'user_id',
+                'name',
+                'description',
+                'images',
+                'price',
                 $this->connection->raw("X(location) as lat"),
                 $this->connection->raw("Y(location) as lng"),
             ])

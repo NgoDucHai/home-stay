@@ -60,8 +60,8 @@ class ApartmentRepository
      */
     public function get($id)
     {
-        return $this->factory->factory(
-            $this->engine->buildQuery()->find($id)
-        );
+        $rawData = $this->engine->buildQuery()->find($id);
+
+        return $rawData ? $this->factory->factory($rawData) : null;
     }
 }

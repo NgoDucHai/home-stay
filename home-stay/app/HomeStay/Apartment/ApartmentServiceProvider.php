@@ -20,13 +20,19 @@ class ApartmentServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton(ApartmentRepository::class, function () {
+        $this->app->singleton(MySqlEngine::class, function ()
+        {
             $connection   = DB::connection();
             if ( ! $connection instanceof MySqlConnection) {
                 throw new BindingResolutionException('Current configuration is not mysql engine');
             }
 
-            return new ApartmentRepository(new MySqlEngine($connection), new ApartmentFactory());
+            return new MySqlEngine($connection);
+        });
+
+        $this->app->singleton(ApartmentRepository::class, function () {
+
+            return new ApartmentRepository($this->app->make(MySqlEngine::class), new ApartmentFactory());
         });
     }
 }

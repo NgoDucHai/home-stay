@@ -56,6 +56,26 @@ class Apartment
     private $city;
 
     /**
+     * @var string
+     */
+    private $name;
+
+    /**
+     * @var float
+     */
+    private $price;
+
+    /**
+     * @var string
+     */
+    private $description;
+
+    /**
+     * @var string[]
+     */
+    private $images;
+
+    /**
      * @var User
      */
     protected $owner;
@@ -69,6 +89,94 @@ class Apartment
     {
         $this->location = $location;
         $this->owner    = $owner;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getReviews()
+    {
+        return $this->reviews;
+    }
+
+    /**
+     * @param Collection $reviews
+     */
+    public function setReviews($reviews)
+    {
+        $this->reviews = $reviews;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string $name
+     * @return self
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+        return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getPrice()
+    {
+        return $this->price;
+    }
+
+    /**
+     * @param float $price
+     * @return self
+     */
+    public function setPrice($price)
+    {
+        $this->price = $price;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param string $description
+     * @return self
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+        return $this;
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getImages()
+    {
+        return $this->images;
+    }
+
+    /**
+     * @param string[] $images
+     * @return self
+     */
+    public function setImages($images)
+    {
+        $this->images = $images;
+        return $this;
     }
 
     /**
@@ -129,7 +237,7 @@ class Apartment
      */
     public function getId()
     {
-        return $this->id;
+        return intval($this->id);
     }
 
     /**
