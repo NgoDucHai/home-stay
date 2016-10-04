@@ -49,9 +49,9 @@ class ApartmentAreaSearchCondition implements ApartmentSearchCondition
     }
 
     /**
-     * @param null $from
-     * @param null $to
-     * @return $this
+     * @param int $from
+     * @param int $to
+     * @return self
      */
     public function hasCapacityFrom($from = null, $to = null)
     {

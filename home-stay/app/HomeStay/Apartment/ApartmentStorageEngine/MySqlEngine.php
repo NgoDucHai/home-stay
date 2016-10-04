@@ -42,6 +42,7 @@ class MySqlEngine implements Engine
     {
         return $this->connection
             ->table('apartments')
+            // TODO must use specific fields
             ->select(array_merge(['*'], [
                 $this->connection->raw("X(location) as lat"),
                 $this->connection->raw("Y(location) as lng"),

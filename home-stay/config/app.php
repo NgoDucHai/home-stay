@@ -156,17 +156,6 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
-
-        /*
-         * Calculator services
-         */
-        App\Calculator\CalculatorServiceProvider::class,
-
-        /*
-         * Advance Calculator
-         */
-        App\AdvanceCalculator\AdvanceCalculatorServiceProvider::class,
-
         /*
          * IDE Helper
          */
