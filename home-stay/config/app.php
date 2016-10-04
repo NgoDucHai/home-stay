@@ -172,6 +172,11 @@ return [
          */
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class
 
+        /*
+         * Home Stay Service Provider
+         */
+
+
     ],
 
     /*
