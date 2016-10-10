@@ -61,6 +61,15 @@ class MySqlEngine implements Engine
     }
 
     /**
+     * @param $id
+     * @return int|null
+     */
+    public function destroy($id)
+    {
+        $apartment = $this->connection->table('apartments')->find($id);
+        return $apartment ? $this->connection->table('apartments')->delete($id) : null;
+    }
+    /**
      * @return Builder
      */
     public function buildQuery()

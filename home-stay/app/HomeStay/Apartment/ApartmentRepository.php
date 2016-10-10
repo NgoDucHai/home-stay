@@ -64,4 +64,15 @@ class ApartmentRepository
 
         return $rawData ? $this->factory->factory($rawData) : null;
     }
+
+    public function getList()
+    {
+        $rawData =  $this->engine->buildQuery()->get();
+        return $rawData ? $this->factory->factoryList($rawData) : null;
+    }
+
+    public function destroy($id)
+    {
+        return $this->engine->destroy($id);
+    }
 }

@@ -16,34 +16,57 @@ class ApartmentsTableSeeder extends Seeder
     {
         $connection = \DB::connection();
         $mysqlEngine = $this->container->make(MySqlEngine::class);
-        
-        $connection->table('apartments')->insert([
-            [
-                'available_from' => Carbon::today()->subDays(3)->format('Y-m-d H:i:s'),
-                'available_to' => Carbon::today()->subDays(2)->format('Y-m-d H:i:s'),
-                'capacity_from' => 2,
-                'capacity_to' => 6,
-                'location' => with($mysqlEngine->convertLocationToSql(new Location(1, 2))),
-                'city' => 'Bac Giang',
-                'user_id' => 1,
-                'name' => 'Ngo hai',
-                'description' => 'This is a description',
-                'images' => 'urlImage',
-                'price' => 100.0
-            ]
-        ]);
+        $connection->table('apartments')->truncate();
+        $connection->table('users')->truncate();
+        $connection->table('reviews')->truncate();
+        $faker = Faker\Factory::create();
+        foreach(range(1,15) as $index)
+        {
+            $connection->table('apartments')->insert([
+                [
+                    'available_from' => $faker->dateTimeBetween($startDate = '-3 days', $endDate = 'now')->format('Y-m-d H:i:s'),
+                    'available_to' => $faker->dateTimeBetween($startDate = 'now', $endDate = '+5 days')->format('Y-m-d H:i:s'),
+                    'capacity_from' => $faker->numberBetween($min = 1, $max = 3),
+                    'capacity_to' => $faker->numberBetween($min = 3, $max = 10),
+                    'location' => with($mysqlEngine->convertLocationToSql(new Location($faker->latitude($min = -90, $max = 90), $faker->longitude($min = -180, $max = 180)))),
+                    'city' => $faker->city,
+                    'user_id' => $faker->numberBetween($min = 1, $max = 10),
+                    'name' => $faker->firstName,
+                    'description' => $faker->paragraph($nbSentences = 3, $variableNbSentences = true),
+                    'images' => $faker->imageUrl($width = 640, $height = 480, 'nature'),
+                    'price' => $faker->randomFloat($min = 100.00, $max = 500.00),
+                    'created_at' => $faker->dateTimeBetween($startDate = '-10 days', $endDate = '-3 days')->format('Y-m-d H:i:s'),
+                    'updated_at' => $faker->dateTimeBetween($startDate = '-3 days', $endDate = 'now')->format('Y-m-d H:i:s'),
+                ]
+            ]);
+        }
+
+        foreach (range(1,15) as $item){
+            $connection->table('reviews')->insert([
+                [
+                    'user_id' => $faker->numberBetween($min = 1, $max = 10),
+                    'apartment_id' => $faker->numberBetween($min = 1, $max = 15),
+                    'rate' => $faker->numberBetween($min = 1, $max = 5),
+                    'comment' => $faker->paragraph($nbSentences = 3, $variableNbSentences = true),
+                    'created_at' => $faker->dateTimeBetween($startDate = '-10 days', $endDate = '-3 days')->format('Y-m-d H:i:s'),
+                    'updated_at' => $faker->dateTimeBetween($startDate = '-3 days', $endDate = 'now')->format('Y-m-d H:i:s'),
+                ],
+            ]);
+        }
+
+        foreach (range(1,15) as $item){
+            $connection->table('users')->insert([
+                [
+                    'name' => $faker->firstName . $faker->lastName,
+                    'email' => $faker->email,
+                    'password' => $faker->md5,
+                    'created_at' => $faker->dateTimeBetween($startDate = '-10 days', $endDate = '-3 days')->format('Y-m-d H:i:s'),
+                    'updated_at' => $faker->dateTimeBetween($startDate = '-3 days', $endDate = 'now')->format('Y-m-d H:i:s'),
+                ],
+            ]);
+        }
 
 
-        $connection->table('reviews')->insert([
-            ['user_id' => 1, 'apartment_id' => 1, 'rate' => 3, 'comment' => 'say something'],
-            ['user_id' => 1, 'apartment_id' => 1, 'rate' => 5, 'comment' => 'say something1'],
-            ['user_id' => 2, 'apartment_id' => 2, 'rate' => 5, 'comment' => 'say something3'],
-        ]);
 
-        $connection->table('users')->insert([
-            ['name' => 'Hai Ngo', 'email' => 'haingo6394@gmail.com', 'password' => '12345'],
-            ['name' => 'Hai Ngo1', 'email' => 'haingo63941@gmail.com', 'password' => '12345'],
-            ['name' => 'Hai Ngo2', 'email' => 'haingo63942@gmail.com', 'password' => '12345'],
-        ]);
     }
 }

@@ -30,4 +30,9 @@ interface Engine
      * @return Expression
      */
     public function convertLocationToSql(Location $location);
+
+    /**
+     * @param $id
+     */
+    public function destroy($id);
 }

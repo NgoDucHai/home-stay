@@ -18,6 +18,7 @@ class ApartmentFactory
      */
     public function factory($rawApartment)
     {
+
         $owner = User::findOrFail($rawApartment->user_id);
         /** @var User $owner */
         $apartment = new Apartment(new Location($rawApartment->lat, $rawApartment->lng), $owner);
@@ -33,6 +34,21 @@ class ApartmentFactory
         ;
     }
 
+    public function factoryRequest($rawApartment)
+    {
+        $owner = User::findOrFail($rawApartment['user_id']);
+        /** @var User $owner */
+        $apartment = new Apartment(new Location($rawApartment['lat'], $rawApartment['lng']), $owner);
+        return $apartment
+            ->setCapacity(intval($rawApartment['capacity_from']), intval($rawApartment['capacity_to']))
+            ->setAvailabilities(Carbon::createFromFormat('Y-m-d H:i:s', $rawApartment['available_from']), Carbon::createFromFormat('Y-m-d H:i:s', $rawApartment['available_to']))
+            ->setCity($rawApartment['city'])
+            ->setName($rawApartment['name'])
+            ->setDescription($rawApartment['description'])
+            ->setImages($rawApartment['images'])
+            ->setPrice(floatval($rawApartment['price']))
+            ;
+    }
     /**
      * @param $rawApartments
      * @return Collection
