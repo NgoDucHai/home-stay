@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\HomeStay\Apartment\Apartment;
+use App\HomeStay\Apartment\ApartmentAreaSearchCondition;
 use App\HomeStay\Apartment\ApartmentRepository;
 use App\Http\Presenters\ApartmentPresenter;
 use Illuminate\Support\Collection;
@@ -90,4 +91,12 @@ class ApartmentController extends Controller
         }
     }
 
+    public function search(ApartmentAreaSearchCondition $condition)
+    {
+        $apartments = $this->apartmentRepository->find($condition);
+        return new Collection(array_map(
+            function ($apartment) {
+                return new ApartmentPresenter($apartment);
+            }, $apartments->toArray()));
+    }
 }

@@ -20,7 +20,7 @@ class ApartmentsTableSeeder extends Seeder
         $connection->table('users')->truncate();
         $connection->table('reviews')->truncate();
         $faker = Faker\Factory::create();
-        foreach(range(1,15) as $index)
+        foreach(range(1,5) as $index)
         {
             $connection->table('apartments')->insert([
                 [
@@ -29,7 +29,6 @@ class ApartmentsTableSeeder extends Seeder
                     'capacity_from' => $faker->numberBetween($min = 1, $max = 3),
                     'capacity_to' => $faker->numberBetween($min = 3, $max = 10),
                     'location' => with($mysqlEngine->convertLocationToSql(new Location($faker->latitude($min = -90, $max = 90), $faker->longitude($min = -180, $max = 180)))),
-                    'city' => $faker->city,
                     'user_id' => $faker->numberBetween($min = 1, $max = 10),
                     'name' => $faker->firstName,
                     'description' => $faker->paragraph($nbSentences = 3, $variableNbSentences = true),
@@ -37,11 +36,14 @@ class ApartmentsTableSeeder extends Seeder
                     'price' => $faker->randomFloat($min = 100.00, $max = 500.00),
                     'created_at' => $faker->dateTimeBetween($startDate = '-10 days', $endDate = '-3 days')->format('Y-m-d H:i:s'),
                     'updated_at' => $faker->dateTimeBetween($startDate = '-3 days', $endDate = 'now')->format('Y-m-d H:i:s'),
+                    'city' => $faker->randomNumber($nbDigits = 2),
+                    'district' => $faker->randomNumber($nbDigits = 3),
+                    'province' => $faker->randomNumber($nbDigits = 5),
                 ]
             ]);
         }
 
-        foreach (range(1,15) as $item){
+        foreach (range(1,5) as $item){
             $connection->table('reviews')->insert([
                 [
                     'user_id' => $faker->numberBetween($min = 1, $max = 10),
@@ -54,7 +56,7 @@ class ApartmentsTableSeeder extends Seeder
             ]);
         }
 
-        foreach (range(1,15) as $item){
+        foreach (range(1,5) as $item){
             $connection->table('users')->insert([
                 [
                     'name' => $faker->firstName . $faker->lastName,

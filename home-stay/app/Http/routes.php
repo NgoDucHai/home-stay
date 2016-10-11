@@ -1,6 +1,7 @@
 <?php
 
 
+use App\Http\Middleware\searchApartmentMiddleware;
 use App\Http\Middleware\storeApartmentMiddleware;
 
 Route::group(['middleware' => ['web']], function () {
@@ -22,6 +23,9 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::delete('/apartment/{id}', 'ApartmentController@destroy');
 
-
+    Route::get('/search', [
+        'middleware' => searchApartmentMiddleware::class,
+        'uses'       => 'ApartmentController@search'
+    ]);
 
 });

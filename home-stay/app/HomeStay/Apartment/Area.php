@@ -9,17 +9,17 @@ namespace App\HomeStay\Apartment;
 class Area
 {
     /**
-     * @var string $district
+     * @var int $district
      */
-    protected $district;
+    public $district;
     /**
-     * @var string $street
+     * @var int $province
      */
-    protected $street;
+    public $province;
 
     /**
      * Area constructor.
-     * @param string $city
+     * @param int $city
      */
     public function __construct($city)
     {
@@ -28,7 +28,7 @@ class Area
     }
 
     /**
-     * @param string $district
+     * @param int $district
      * @return $this
      */
     public function setDistrict($district)
@@ -38,12 +38,12 @@ class Area
     }
 
     /**
-     * @param string $street
+     * @param int $province
      * @return $this
      */
-    public function setStreet($street)
+    public function setProvince($province)
     {
-        $this->street = $street;
+        $this->province = $province;
         return $this;
     }
 }

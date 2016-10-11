@@ -31,9 +31,18 @@ class ApartmentAreaSearchCondition implements ApartmentSearchCondition
     private $availableTo;
 
     /**
-     * @var Area
+     * @var int
      */
     private $city;
+
+    /**
+     * @var int
+     */
+    private $district;
+    /**
+     * @var int
+     */
+    private $province;
 
     /**
      * @param \DateTime|null $from
@@ -62,11 +71,15 @@ class ApartmentAreaSearchCondition implements ApartmentSearchCondition
     }
 
     /**
-     * @param Area $city
+     * @param Area $area
+     * @return self
      */
-    public function in(Area $city)
+    public function in(Area $area)
     {
-        $this->city = $city->city;
+        $this->city = $area->city;
+        $this->district = $area->district ? $area->district : null;
+        $this->province = $area->province ? $area->province : null;
+        return $this;
     }
 
     /**
@@ -92,7 +105,15 @@ class ApartmentAreaSearchCondition implements ApartmentSearchCondition
         }
 
         if( $this->city){
-            $query->where('city', 'LIKE', $this->city);
+            $query->where('city', '=', $this->city);
+        }
+
+        if ( $this->district){
+            $query->where('district', '=', $this->district);
+        }
+
+        if ( $this->province){
+            $query->where('province', '=', $this->province);
         }
     }
 }
