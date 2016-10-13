@@ -17,14 +17,21 @@ class ReviewingService
      */
     protected $connection;
 
+    /**
+     * @var ReviewFactory
+     */
+    protected $factory;
+
 
     /**
      * ReviewingService constructor.
      * @param ConnectionInterface $connection
+     * @param ReviewFactory $factory
      */
-    public function __construct(ConnectionInterface $connection)
+    public function __construct(ConnectionInterface $connection, ReviewFactory $factory)
     {
         $this->connection = $connection;
+        $this->factory    = $factory;
     }
 
     /**
@@ -40,5 +47,11 @@ class ReviewingService
             'rate'         => $review->getRating()->getValue(),
             'comment'      => $review->getComment()->getContent()
         ]);
+    }
+
+    public function getReviewById($id)
+    {
+        $rawData = $this->connection->table('reviews')->where('apartment_id', $id)->get();
+        return $this->factory->factoryList($rawData);
     }
 }

@@ -1,0 +1,45 @@
+#map { top:85px; bottom:0; width:100%; }
+.info {
+    position:absolute;
+    top:95px;
+    right:20px;
+}
+.info div {
+    background:#fff;
+    padding:4px;
+    border-radius:3px;
+}
+.popup {
+    text-align:center;
+}
+.popup .slideshow .image        { display:none; }
+.popup .slideshow .image.active { display:block; }
+.popup .slideshow img {
+    width:100%;
+}
+.popup .slideshow .caption {
+    background:#eee;
+    padding:10px;
+}
+.popup .cycle {
+    padding:10px 0 20px;
+}
+.popup .cycle a.prev { float:left; }
+.popup .cycle a.next { float:right; }
+.scroll {
+    height: 350px;
+    overflow: scroll;
+}
+.scroll::-webkit-scrollbar {
+    width: 5px;
+}
+
+/*.scroll::-webkit-scrollbar-track {*/
+/*-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);*/
+/*border-radius: 10px;*/
+/*}*/
+
+/*.scroll::-webkit-scrollbar-thumb {*/
+/*border-radius: 10px;*/
+/*-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);*/
+/*}*/

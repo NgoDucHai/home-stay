@@ -18,7 +18,7 @@ class ReviewingServiceProvider extends ServiceProvider
     {
         $this->app->singleton(ReviewingService::class, function ()
         {
-            return new ReviewingService(DB::connection());
+            return new ReviewingService(DB::connection(), new ReviewFactory());
         });
     }
 }

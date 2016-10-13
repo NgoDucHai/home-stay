@@ -7,12 +7,12 @@ use App\Http\Middleware\storeApartmentMiddleware;
 Route::group(['middleware' => ['web']], function () {
 
     Route::get('/', function () {
-        return view('welcome');
+        return view('index');
     });
 
     Route::get('/apartments', 'ApartmentController@index');
 
-    Route::get('/apartment/{id}', 'ApartmentController@index');
+    Route::get('/apartment/{id}', 'ApartmentController@read');
 
     Route::post('/apartment',[
         'middleware' => storeApartmentMiddleware::class,
@@ -26,6 +26,17 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/search', [
         'middleware' => searchApartmentMiddleware::class,
         'uses'       => 'ApartmentController@search'
+    ]);
+
+
+    Route::get('/', [
+        'uses'=>'AreaController@getCity'
+    ]);
+    Route::get('/getDistrict/{id}', [
+        'uses'=>'AreaController@getDistrict'
+    ]);
+    Route::get('/getProvince/{id}', [
+        'uses'=>'AreaController@getProvince'
     ]);
 
 });

@@ -47,10 +47,12 @@ class ApartmentRepository
 
     /**
      * @param Apartment $apartment
+     * @return $response
      */
     public function save(Apartment $apartment)
     {
-        $this->engine->save($apartment);
+        $response = $this->engine->save($apartment);
+        return $response;
     }
 
     /**

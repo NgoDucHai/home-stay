@@ -14,11 +14,7 @@ class ApartmentAreaSearchCondition implements ApartmentSearchCondition
     /**
      * @var int
      */
-    private $capacityFrom;
-    /**
-     * @var int
-     */
-    private $capacityTo;
+    private $capacity;
 
     /**
      * @var \DateTime
@@ -58,15 +54,12 @@ class ApartmentAreaSearchCondition implements ApartmentSearchCondition
     }
 
     /**
-     * @param int $from
-     * @param int $to
-     * @return self
+     * @param null $capacity
+     * @return static
      */
-    public function hasCapacityFrom($from = null, $to = null)
+    public function hasCapacity($capacity = null)
     {
-        $this->capacityFrom = $from;
-        $this->capacityTo   = $to;
-
+        $this->capacity = $capacity;
         return $this;
     }
 
@@ -96,12 +89,12 @@ class ApartmentAreaSearchCondition implements ApartmentSearchCondition
             $query->where('available_to', '>', $this->availableTo->format('Y-m-d H:i:s'));
         }
 
-        if ($this->capacityFrom) {
-            $query->where('capacity_from', '<', $this->capacityFrom);
+        if ($this->capacity) {
+            $query->where('capacity_from', '<', $this->capacity);
         }
 
-        if ($this->capacityTo) {
-            $query->where('capacity_to', '>', $this->capacityTo);
+        if ($this->capacity) {
+            $query->where('capacity_to', '>', $this->capacity);
         }
 
         if( $this->city){

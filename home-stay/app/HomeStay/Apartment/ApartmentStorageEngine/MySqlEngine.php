@@ -29,6 +29,7 @@ class MySqlEngine implements Engine
 
     /**
      * @param Apartment $apartment
+     * @return Apartment $apartment
      */
     public function save(Apartment $apartment)
     {
@@ -37,13 +38,15 @@ class MySqlEngine implements Engine
             'available_to'   => $apartment->getAvailabilities()[1]->format('Y-m-d H:i:s'),
             'capacity_from'  => $apartment->getCapacity()[0],
             'capacity_to'    => $apartment->getCapacity()[1],
-            'city'           => $apartment->getCity(),
             'user_id'        => $apartment->getOwner()->getId(),
             'location'       => $this->convertLocationToSql($apartment->getLocation()),
             'name'           => $apartment->getName(),
             'description'    => $apartment->getDescription(),
             'images'         => json_encode($apartment->getImages()),
-            'price'          => $apartment->getPrice()
+            'price'          => $apartment->getPrice(),
+            'city'           => $apartment->getCity(),
+            'district'       => $apartment->getDistrict(),
+            'province'       => $apartment->getProvince()
         ];
 
         if ($apartment->getId())
@@ -58,6 +61,7 @@ class MySqlEngine implements Engine
 
             $apartment->setId($this->connection->getPdo()->lastInsertId());
         }
+        return $apartment;
     }
 
     /**
@@ -84,12 +88,14 @@ class MySqlEngine implements Engine
                 'capacity_to',
                 'created_at',
                 'updated_at',
-                'city',
                 'user_id',
                 'name',
                 'description',
                 'images',
                 'price',
+                'city',
+                'district',
+                'province',
                 $this->connection->raw("X(location) as lat"),
                 $this->connection->raw("Y(location) as lng"),
             ])

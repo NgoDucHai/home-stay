@@ -1,6 +1,7 @@
 <?php
 
 namespace App\HomeStay\ReviewingService;
+use App\User;
 
 /**
  * Class Review
@@ -17,6 +18,10 @@ class Review
      * @var Comment
      */
     protected $comment;
+    /**
+     * @var User
+     */
+    protected $reviewer;
 
     /**
      * Review constructor.
@@ -43,5 +48,15 @@ class Review
     public function getComment()
     {
         return $this->comment;
+    }
+
+    /**
+     * @param User $reviewer
+     * @return self
+     */
+    public function setReviewer(User $reviewer)
+    {
+        $this->reviewer = $reviewer;
+        return $this;
     }
 }

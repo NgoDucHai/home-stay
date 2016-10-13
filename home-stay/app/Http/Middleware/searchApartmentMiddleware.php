@@ -4,7 +4,9 @@ namespace App\Http\Middleware;
 
 use App\HomeStay\Apartment\ApartmentAreaSearchCondition;
 use App\HomeStay\Apartment\Area;
+use Carbon\Carbon;
 use Closure;
+use DateTime;
 use Illuminate\Http\Request;
 use Validator;
 
@@ -42,21 +44,25 @@ class searchApartmentMiddleware
         $condition = new ApartmentAreaSearchCondition();
         $params = $request->all();
         $area = new Area($params['city']);
+        $start_date = new DateTime();
+        $start_date->setTimestamp(strtotime($params['available_from']));
+        $end_date = new DateTime();
+        $end_date->setTimestamp(strtotime($params['available_to']));
         if ($params['district']) $area->setDistrict($params['district']);
         if ($params['province']) $area->setProvince($params['province']);
-        $condition->availableIn(new \DateTime($params['available_from']), new \DateTime($params['available_to']))
-                  ->hasCapacityFrom($params['capacity_from'], $params['capacity_to'])
+        $condition->availableIn($start_date, $end_date)
+                  ->hasCapacity($params['capacity'])
                   ->in($area);
         return $condition;
     }
 
     public function makeValidator(Request $request)
     {
+        $today = Carbon::now()->format('d-m-Y');
         $rule = [
-            'available_from'    => 'required|date',
-            'available_to'      => 'required|date|after:available_from',
-            'capacity_from'     => 'required|min:1',
-            'capacity_to'       => 'required|min:capacity_from',
+            'available_from'    => 'required|date_format:d-m-Y|after:'. $today,
+            'available_to'      => 'required|date_format:d-m-Y|after:available_from',
+            'capacity'          => 'required|min:1',
         ];
         return Validator::make($request->all(), $rule, $this->message());
 
@@ -68,9 +74,7 @@ class searchApartmentMiddleware
         return [
             'available_from.required'   => 'Ngay bat dau',
             'available_to.required'     => 'Nhap ngay ket thuc',
-            'capacity_from.required'    => 'Chon so luong nguoi nho nhat',
-            'capacity_to.required'      => 'Chon so luong nguoi lon nhat',
-            'capacity_to.min'           => 'So luong lon nhat phai lon hon so luong be nhat',
+            'capacity.required'         => 'Chon so luong nguoi nho nhat',
         ];
     }
 }

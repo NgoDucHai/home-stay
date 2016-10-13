@@ -31,6 +31,8 @@ class ApartmentFactory
             ->setDescription($rawApartment->description)
             ->setImages(json_decode($rawApartment->images))
             ->setPrice(floatval($rawApartment->price))
+            ->setDistrict($rawApartment->district)
+            ->setProvince($rawApartment->province)
         ;
     }
 
@@ -47,6 +49,8 @@ class ApartmentFactory
             ->setDescription($rawApartment['description'])
             ->setImages($rawApartment['images'])
             ->setPrice(floatval($rawApartment['price']))
+            ->setDistrict($rawApartment['district'])
+            ->setProvince($rawApartment['province'])
             ;
     }
     /**

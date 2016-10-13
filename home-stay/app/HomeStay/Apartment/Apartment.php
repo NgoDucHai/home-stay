@@ -8,6 +8,7 @@ namespace App\HomeStay\Apartment;
  */
 use App\User;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class Apartment
@@ -54,6 +55,15 @@ class Apartment
      * @var string
      */
     private $city;
+
+    /**
+     * @var string
+     */
+    private $district;
+    /**
+     * @var string
+     */
+    private $province;
 
     /**
      * @var string
@@ -292,5 +302,41 @@ class Apartment
     public function getLocation()
     {
         return $this->location;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDistrict()
+    {
+        return $this->district;
+    }
+
+    /**
+     * @param string $district
+     * @return self
+     */
+    public function setDistrict($district)
+    {
+        $this->district = $district;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getProvince()
+    {
+        return $this->province;
+    }
+
+    /**
+     * @param string $province
+     * @return self
+     */
+    public function setProvince($province)
+    {
+        $this->province = $province;
+        return $this;
     }
 }

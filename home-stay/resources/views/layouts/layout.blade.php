@@ -42,8 +42,13 @@
     <link rel="stylesheet" href="{{asset('css/owl.carousel.min.css')}}">
     <link rel="stylesheet" href="{{asset('css/owl.theme.default.min.css')}}">
 
+    <!--map box-->
+    <link href='https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.css' rel='stylesheet' />
+
+
     <!-- Theme style  -->
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
+    <link rel="stylesheet" href="{{asset('css/homestay.css')}}">
 
     <!-- Modernizr JS -->
     <script src="{{asset('js/modernizr-2.6.2.min.js')}}"></script>
@@ -60,7 +65,7 @@
 
 
     <!-- <div class="page-inner"> -->
-     @include('layouts.header')
+    @include('layouts.header')
 
     @yield('content')
 
@@ -98,11 +103,15 @@
 
 <script src="{{asset('js/moment.min.js')}}"></script>
 <script src="{{asset('js/bootstrap-datetimepicker.min.js')}}"></script>
+<!--bootstrap3-typeahead-->
+<script src="{{asset('js/bootstrap3-typeahead.min.js')}}"></script>
 
+<!-- map box -->
+<script src='https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.js'></script>
 
 <!-- Main -->
 <script src="{{asset('js/main.js')}}"></script>
-
+@yield('scripts')
 </body>
 </html>
 
