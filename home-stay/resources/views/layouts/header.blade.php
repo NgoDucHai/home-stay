@@ -7,7 +7,7 @@
             </div>
             <div class="col-xs-8 text-right menu-1">
                 <ul>
-                    <li><a href="menu.html">Menu</a></li>
+                    <li><a href="menu.html">Home</a></li>
                     <li class="has-dropdown">
                         <a href="services.html">Services</a>
                         <ul class="dropdown">
@@ -17,11 +17,10 @@
                         </ul>
                     </li>
                     <li><a href="contact.html">Contact</a></li>
-                    <li class="btn-cta"><a href="#"><span>Reservation</span></a></li>
+                    <li class="btn-cta"><a href="#"><span>Login</span></a></li>
                 </ul>
             </div>
         </div>
-
     </div>
 </nav>
 

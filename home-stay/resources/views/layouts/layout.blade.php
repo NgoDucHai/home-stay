@@ -44,8 +44,10 @@
 
     <!--map box-->
     <link href='https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.css' rel='stylesheet' />
-
-
+    <!-- dropzone-->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.0.1/min/dropzone.min.css" rel="stylesheet">
+    <!-- parsley -->
+    <link rel="stylesheet" href="{{asset('css/parsley.css')}}">
     <!-- Theme style  -->
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
     <link rel="stylesheet" href="{{asset('css/homestay.css')}}">
@@ -103,11 +105,15 @@
 
 <script src="{{asset('js/moment.min.js')}}"></script>
 <script src="{{asset('js/bootstrap-datetimepicker.min.js')}}"></script>
+<!-- parsley -->
+<script src="{{asset('js/parsley.min.js')}}"></script>
 <!--bootstrap3-typeahead-->
 <script src="{{asset('js/bootstrap3-typeahead.min.js')}}"></script>
 
 <!-- map box -->
 <script src='https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.js'></script>
+<!-- dropzone -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.2.0/min/dropzone.min.js"></script>
 
 <!-- Main -->
 <script src="{{asset('js/main.js')}}"></script>

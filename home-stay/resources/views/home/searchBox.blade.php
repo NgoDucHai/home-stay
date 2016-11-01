@@ -2,16 +2,13 @@
     <div class="tab">
         <div class="tab-content">
             <div class="tab-content-inner active" data-content="signup">
-                <h3 class="cursive-font">Table Reservation</h3>
+                <h3 class="cursive-font">
+                    Search for home stay</h3>
                 <form action="/search" method="get" id="search">
                     <div class="scroll">
                         <div class="form-group">
                             <label for="city">Select State:</label>
                             <select name="city" class="form-control">
-                                <option value="">--- Select City ---</option>
-                                @foreach ($cities as $city)
-                                    <option value="{{ $city->code }}">{{ $city->prefix }} {{ $city->name }}</option>
-                                @endforeach
                             </select>
                         </div>
                         <div class="form-group">
@@ -21,7 +18,7 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="title">Select District:</label>
+                            <label for="title">Select Province:</label>
                             <select name="province" class="form-control">
                                 <option value="">--- Select Province ---</option>
                             </select>
@@ -55,7 +52,7 @@
                     <br>
                     <div class="row form-group">
                         <div class="col-md-12">
-                            <input type="submit" class="btn btn-primary btn-block" value="Reserve Now">
+                            <input type="submit" class="btn btn-primary btn-block" value="Find Now">
                         </div>
                     </div>
                 </form>

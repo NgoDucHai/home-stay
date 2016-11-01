@@ -3,8 +3,10 @@
 namespace App\Http\Middleware;
 
 use App\HomeStay\Apartment\ApartmentFactory;
+use Carbon\Carbon;
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
 use Validator;
 
 class storeApartmentMiddleware
@@ -44,11 +46,12 @@ class storeApartmentMiddleware
 
     public function makeValidator(Request $request)
     {
+        $today = Carbon::now()->format('d-m-Y');
         $rule = [
             'name'              => 'required|unique:apartments|max:255',
             'description'       => 'required',
-            'available_from'    => 'required|date',
-            'available_to'      => 'required|date|after:available_from',
+            'available_from'    => 'required|date_format:d-m-Y|after:'. $today,
+            'available_to'      => 'required|date_format:d-m-Y|after:available_from',
             'capacity_from'     => 'required|min:1',
             'capacity_to'       => 'required|min:capacity_from',
             'price'             => 'required'

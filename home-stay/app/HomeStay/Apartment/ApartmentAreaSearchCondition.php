@@ -82,19 +82,19 @@ class ApartmentAreaSearchCondition implements ApartmentSearchCondition
     public function decorateQuery(Builder $query)
     {
         if ($this->availableFrom) {
-            $query->where('available_from', '<', $this->availableFrom->format('Y-m-d H:i:s'));
+            $query->where('available_from', '<=', $this->availableFrom->format('Y-m-d H:i:s'));
         }
 
         if ($this->availableTo) {
-            $query->where('available_to', '>', $this->availableTo->format('Y-m-d H:i:s'));
+            $query->where('available_to', '>=', $this->availableTo->format('Y-m-d H:i:s'));
         }
 
         if ($this->capacity) {
-            $query->where('capacity_from', '<', $this->capacity);
+            $query->where('capacity_from', '<=', $this->capacity);
         }
 
         if ($this->capacity) {
-            $query->where('capacity_to', '>', $this->capacity);
+            $query->where('capacity_to', '>=', $this->capacity);
         }
 
         if( $this->city){

@@ -62,7 +62,6 @@ class ApartmentRepository
     public function get($id)
     {
         $rawData = $this->engine->buildQuery()->find($id);
-
         return $rawData ? $this->factory->factory($rawData) : null;
     }
 

@@ -9,9 +9,7 @@ class AreaController extends Controller
     public function getCity()
     {
         $cities = DB::table("cities")->get();
-        return view('index',[
-            'cities' => $cities
-        ]);
+        return json_encode($cities);
     }
 
 

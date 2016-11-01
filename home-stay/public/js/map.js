@@ -22,7 +22,7 @@
                     image: obj.images,
                     owner: obj.owner.name,
                     price: obj.price,
-                    id: i,
+                    id: obj.id,
 					'marker-color': '#548cba',
                     'marker-size': 'large',
                     'marker-symbol': 'warehouse'
@@ -68,7 +68,7 @@
                 '<h3>'+ feature.properties.title +'</h3>'+
                 '<p style="color: #0b0b0b">'+feature.properties.description+'</p>'+
                 '<p style="color: #0b0b0b">'+feature.properties.price+'</p>'+
-                '<a href="#" class="btn btn-default" role="button">Detail</a></p>'+
+                '<a href="/apartment/'+feature.properties.id+'" class="btn btn-default" role="button">Detail</a></p>'+
                 '</div>'+
                 '<div class="cycle">' +
                 '<a href="#" class="prev">&laquo; Previous</a>' +

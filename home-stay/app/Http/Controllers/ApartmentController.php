@@ -37,6 +37,7 @@ class ApartmentController extends Controller
     }
 
     /**
+     * show list all apart ment
      * @return \Illuminate\Http\JsonResponse|Collection | Response
      */
     public function index()
@@ -56,6 +57,15 @@ class ApartmentController extends Controller
     }
 
     /**
+     * show a form create a new apartment
+     */
+
+    public function create()
+    {
+        
+    }
+
+    /**
      * @param Apartment $apartment
      * @return \Illuminate\Http\JsonResponse
      */
@@ -63,11 +73,14 @@ class ApartmentController extends Controller
     {
         $this->apartmentRepository->save($apartment);
         return Response::json([
-            'message' => "Added apartments "
+            'state'   =>  "Ok",
+            'message' => "Added apartments ",
+            'id'      => $apartment->getId()
         ], 200);
     }
 
     /**
+     * show form editing for a apartment
      * @param $id
      * @return ApartmentPresenter|\Illuminate\Http\JsonResponse
      */
@@ -86,12 +99,20 @@ class ApartmentController extends Controller
         return new ApartmentPresenter($apartment);
     }
 
+    /**
+     * display the detail of apartment
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\JsonResponse|\Illuminate\View\View
+     */
+
     public function read($id)
     {
         $apartment = $this->apartmentRepository->get($id);
 
         $reviews = $this->reviewingService->getReviewById($id);
-        $apartment->setReviews($reviews);
+        if($reviews->count()){
+            $apartment->setReviews($reviews);
+        }
         if ( ! $apartment)
         {
             return Response::json([
@@ -99,7 +120,10 @@ class ApartmentController extends Controller
                 'message' => "No apartments with id [$id] was found"
             ], 404);
         }
-        return new ApartmentPresenter($apartment);
+        $apartmentDetail =  new ApartmentPresenter($apartment);
+        return view('detail',[
+            'apartmentDetail' => json_decode($apartmentDetail->toJson())
+        ]);
     }
 
     /**
@@ -137,4 +161,5 @@ class ApartmentController extends Controller
             'listApartment' => json_encode($listApartment)
         ]);
     }
+
 }

@@ -21,6 +21,7 @@ class ApartmentPresenter implements Jsonable
 
     public function toJson($options = 0)
     {
+
         return json_encode([
             'id'            => $this->apartment->getId(),
             'owner' => $this->apartment->getOwner()->getAttributes(),
