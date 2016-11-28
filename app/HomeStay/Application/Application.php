@@ -54,4 +54,26 @@ class Application extends Model
 
         return $this;
     }
+
+    /**
+     * @param $message
+     * @return $this
+     */
+
+    public function setMessage($message)
+    {
+        $this->setAttribute('message', $message);
+
+        return $this;
+    }
+
+
+    /**
+     * @return mixed
+     */
+    public function getMessage()
+    {
+        return $this->getAttribute('message');
+    }
+
 }

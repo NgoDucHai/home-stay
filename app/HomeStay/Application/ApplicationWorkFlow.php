@@ -29,14 +29,16 @@ class ApplicationWorkFlow
     /**
      * @param User $user
      * @param Apartment $apartment
+     * @param $message
      * @return Application
      */
-    public function make(User $user, Apartment $apartment)
+    public function make(User $user, Apartment $apartment, $message)
     {
         return with(new Application())
             ->setApplicant($user)
             ->setApartment($apartment)
             ->setState(ApplicationState::PENDING)
+            ->setMessage($message)
         ;
     }
 

@@ -49,7 +49,10 @@
                                 <hr>
                                 Ten: {{$apartmentDetail->owner->name}}<br>
                                 Email: {{$apartmentDetail->owner->email}}
+                                <hr>
+                                <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#applyModal">Dat phong</button>
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -64,5 +67,45 @@
         </div>
         <br>
     </header>
+
+    <!-- Modal -->
+    <div class="modal fade" id="applyModal" tabindex="-1" role="dialog" aria-labelledby="applyModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title text-center" id="myModalLabel">Gui mot vai loi nhan den cho chu nha</h4>
+                </div>
+                <div class="modal-body">
+                    <form role="form">
+                        <textarea class="form-control" rows="4" name="message" id="message"></textarea>
+                        <br>
+                        <div class="col-sm-4 col-sm-offset-4">
+                            <button class="btn btn-primary btn-block" type="button" id="btn-apply" value="{{$apartmentDetail->id}}">Send</button>
+                        </div>
+                        <div class="clearfix"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
+@section('scripts')
+    <script>
+        (function() {
+            $("#btn-apply").click(function(e){
+                e.preventDefault();
+                var apartmentId = $(this).val();
+                var message = $('#message').val();
+                $.ajax({type: "POST",
+                    url: "/application",
+                    data: {
+                        apartmentId: apartmentId ,
+                        message: message
+                    }
+                });
+            });
+        })();
+    </script>
+@stop

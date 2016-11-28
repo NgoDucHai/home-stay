@@ -71,4 +71,9 @@ class User extends Authenticatable
         $this->email = $email;
         return $this;
     }
+
+    public function getAuthPassword()
+    {
+        return $this->getAttribute('password');
+    }
 }

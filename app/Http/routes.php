@@ -41,7 +41,10 @@ Route::group(['middleware' => ['web']], function () {
         'uses'       => 'ApartmentController@search'
     ]);
 
+// application
+    Route::post('/application', 'ApplicationController@create');
 
+// get address
     Route::get('/getCity', [
         'uses'=>'AreaController@getCity'
     ]);
