@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\HomeStay\Apartment\ApartmentRepository;
 use App\HomeStay\Application\ApplicationWorkFlow;
 use Illuminate\Http\Request;
+use Mail;
 use Response;
 
 /**
@@ -45,7 +46,15 @@ class ApplicationController extends Controller
         $message = $request->message;
         $user = \Auth::user();
         $apartment = $this->apartmentRepository->get($apartmentId);
-        $this->applicationWorkFlow->make($user, $apartment, $message);
+        $this->applicationWorkFlow->make($user, $apartment, $message)->save();
+        $data = array (
+            'bodyMessage' => $message
+        );
+        Mail::send('email', $data, function($message) {
+            $message->from ( 'homestay@demo.com', 'Homestay' );
+            $message->to ( 'haingo6394@gmail.com' )->subject ( 'Just Laravel demo email using SendGrid' );
+
+        });
         return Response::json([
             'message' => 'Dat phong thanh cong'
         ]);

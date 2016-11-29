@@ -109,3 +109,40 @@ form#search select option {
     line-height: 30px;
     padding-left: 10px;
 }
+
+.white {
+    color: #FFFFFF !important;
+}
+
+.login .form-group {
+     margin-left: 0;
+     margin-right: 0;
+}
+
+.login .form-control {
+    color: #FFFFFF;
+}
+
+.form-wrap-profile {
+    border-top: 10px solid #FBB448;
+    position: relative;
+    width: 100%;
+    -webkit-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.15);
+    -moz-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.15);
+    box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.15);
+}
+
+.border-none {
+    border: 0;
+}
+
+.special-img
+{
+    height: 30px;
+    width: 30px;
+    position: relative;
+}
+.profile-image  {
+    padding-top: 0;
+    padding-bottom: 0;
+}

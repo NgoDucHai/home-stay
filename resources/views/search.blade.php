@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <header id="gtco-header" class="gtco-cover gtco-cover-md" role="banner" style="background-image: url(images/img_bg_1.jpg)" data-stellar-background-ratio="0.5">
+    <header id="gtco-header" class="gtco-cover gtco-cover-md" role="banner" style="background-image: url({{asset('images/img_bg_11.jpg')}})" data-stellar-background-ratio="0.5">
         <div class="overlay"></div>
         <div class="gtco-container" id="listApartment" data-apartment="{{$listApartment}}">
             <div id='map' style="height: 500px;top:85px; "></div>

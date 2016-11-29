@@ -5,20 +5,17 @@
 @endsection
 
 @section('content')
-    <header id="gtco-header" class="gtco-cover gtco-cover-md" role="banner" style="background-image: url(images/img_bg_1.jpg)" data-stellar-background-ratio="0.5">
+    <header id="gtco-header" class="gtco-cover gtco-cover-md" role="banner" style="background-image: url({{asset('images/img_bg_11.jpg')}})" data-stellar-background-ratio="0.5">
         <div class="overlay"></div>
         <div class="gtco-container" style="margin-top: 10em;">
             <div class="container">
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">Login</div>
-                            <div class="panel-body">
-                                <form class="form-horizontal" role="form" method="POST" action="{{ url('auth/login') }}">
+                        <h3 class="text-center cursive-font" style="color: #FFFFFF; font-size: 40px;">Login</h3>
+                        <form class="form-horizontal" role="form" method="POST" action="{{ url('auth/login') }}">
                                     {{ csrf_field() }}
-
                                     <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                                        <label for="email" class="col-md-4 control-label">E-Mail Address</label>
+                                        <label for="email" class="col-md-4 control-label white">E-Mail Address</label>
 
                                         <div class="col-md-6">
                                             <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}">
@@ -32,7 +29,7 @@
                                     </div>
 
                                     <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                                        <label for="password" class="col-md-4 control-label">Password</label>
+                                        <label for="password" class="col-md-4 control-label white">Password</label>
 
                                         <div class="col-md-6">
                                             <input id="password" type="password" class="form-control" name="password">
@@ -65,8 +62,6 @@
                                         </div>
                                     </div>
                                 </form>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>

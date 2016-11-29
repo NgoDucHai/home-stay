@@ -18,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'phone', 'age', 'avatar', 'description'
     ];
 
     /**
@@ -42,6 +42,10 @@ class User extends Authenticatable
      */
     protected $password;
 
+    protected $avatar;
+    protected $phone;
+    protected $description;
+    protected $age;
 
     /**
      * @return int id
@@ -70,6 +74,11 @@ class User extends Authenticatable
     {
         $this->email = $email;
         return $this;
+    }
+
+    public function getEmail()
+    {
+        return $this->getAttribute('email');
     }
 
     public function getAuthPassword()

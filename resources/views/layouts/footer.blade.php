@@ -1,4 +1,4 @@
-<footer id="gtco-footer" role="contentinfo" style="background-image: url(images/img_bg_1.jpg)" data-stellar-background-ratio="0.5">
+<footer id="gtco-footer" role="contentinfo" style="background-image: url({{asset('images/img_bg_11.jpg')}})" data-stellar-background-ratio="0.5">
     <div class="overlay"></div>
     <div class="gtco-container">
         <div class="row row-pb-md">

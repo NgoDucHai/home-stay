@@ -17,7 +17,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/', function () {
         return view('index');
     });
-//    apartment
+    //    apartment
     Route::get('/apartments', 'ApartmentController@index');
 
     Route::get('/apartment/{id}', ['as'=>'apartment.read','uses'=>'ApartmentController@read']);
@@ -30,21 +30,22 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/apartment/{id}/edit', 'ApartmentController@edit');
 
     Route::delete('/apartment/{id}', 'ApartmentController@destroy');
-//    image
+    //    image
 
     Route::get('/add', 'ImageController@create');
     Route::post('/dropzone/store', ['as'=>'dropzone.store','uses'=>'ImageController@store']);
 
-//    search
+    //    search
     Route::get('/search', [
         'middleware' => searchApartmentMiddleware::class,
         'uses'       => 'ApartmentController@search'
     ]);
 
-// application
+    // application
     Route::post('/application', 'ApplicationController@create');
+    Route::get('/sendemail', 'ApplicationController@sendEmial');
 
-// get address
+    //  get address
     Route::get('/getCity', [
         'uses'=>'AreaController@getCity'
     ]);
@@ -54,6 +55,10 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/getProvince/{id}', [
         'uses'=>'AreaController@getProvince'
     ]);
+
+    //  user
+    Route::get('/profile', 'UserController@profile');
+
 
 });
 
