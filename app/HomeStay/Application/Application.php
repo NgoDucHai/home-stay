@@ -21,7 +21,6 @@ class Application extends Model
     public function setApplicant(User $applicant)
     {
         $this->setAttribute('user_id', $applicant->getId());
-
         return $this;
     }
 
@@ -74,6 +73,11 @@ class Application extends Model
     public function getMessage()
     {
         return $this->getAttribute('message');
+    }
+
+    public function getId()
+    {
+        return $this->getAttribute('id');
     }
 
 }

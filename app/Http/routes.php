@@ -44,6 +44,11 @@ Route::group(['middleware' => ['web']], function () {
     // application
     Route::post('/application', 'ApplicationController@create');
     Route::get('/sendemail', 'ApplicationController@sendEmial');
+    Route::post('/application/{id}/accept', 'ApplicationController@accept');
+    Route::post('/application/{id}/cancel', 'ApplicationController@cancel');
+    Route::post('/application/{id}/deal', 'ApplicationController@deal');
+    Route::post('/application/{id}/canAccept', 'ApplicationController@canAccept');
+
 
     //  get address
     Route::get('/getCity', [

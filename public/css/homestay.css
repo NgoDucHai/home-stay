@@ -146,3 +146,38 @@ form#search select option {
     padding-top: 0;
     padding-bottom: 0;
 }
+
+
+.sussess {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 100px;
+    height: 100px;
+}
+
+.success svg path {
+    stroke: #55acee;
+    fill: white;
+    stroke-width: 6px;
+    stroke-dashoffset: 745.74853515625;
+    stroke-dasharray: 745.74853515625;
+    -moz-animation: checkit 1.5s cubic-bezier(0.4, 0, 1, 1) forwards infinite 1s;;
+    -webkit-animation: checkit 1.5s cubic-bezier(0.4, 0, 1, 1) forwards infinite 1s;;
+    animation: checkit 1.5s cubic-bezier(0.4, 0, 1, 1) forwards infinite 1s;
+}
+
+/* Keyframes */
+@-moz-keyframes checkit {
+    0% {stroke-dashoffset: 745.74853515625;}
+    100% {stroke-dashoffset: 0;}
+}
+@-webkit-keyframes checkit {
+    0% {stroke-dashoffset: 745.74853515625;}
+    100% {stroke-dashoffset: 0;}
+}
+@keyframes checkit {
+    0% {stroke-dashoffset: 745.74853515625;}
+    100% {stroke-dashoffset: 0;}
+}

@@ -5,6 +5,7 @@ namespace App\HomeStay\Application;
 use App\HomeStay\Apartment\Apartment;
 use App\HomeStay\Policies\UserOwnApartmentPolicy;
 use App\User;
+use DB;
 
 /**
  * Class ApplicationWorkFlow
@@ -40,6 +41,16 @@ class ApplicationWorkFlow
             ->setState(ApplicationState::PENDING)
             ->setMessage($message)
         ;
+    }
+
+    /**
+     * @param $id
+     * @return Application $application
+     */
+    public function getApplicationById($id)
+    {
+        $application = DB::table('applications')->where('id', $id)->first();
+        return $application;
     }
 
     /**

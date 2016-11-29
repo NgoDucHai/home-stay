@@ -122,7 +122,8 @@ class ApartmentController extends Controller
         }
         $apartmentDetail =  new ApartmentPresenter($apartment);
         return view('detail',[
-            'apartmentDetail' => json_decode($apartmentDetail->toJson())
+            'apartmentDetail' => json_decode($apartmentDetail->toJson()),
+            'user' => \Auth::user()
         ]);
     }
 

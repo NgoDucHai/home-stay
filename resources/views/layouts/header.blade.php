@@ -23,7 +23,7 @@
                     @else
                     <li class="has-dropdown">
                         <a href="#">
-                            <img src="/upload/avatars/{{ $user->avatar }}" class="img-circle special-img">
+                            <img src="/upload/avatars/{{ Auth::user()->avatar }}" class="img-circle special-img">
                             {{ Auth::user()->name }}
                             <span class="caret"></span>
                         </a>
@@ -32,6 +32,7 @@
                                     <i class="fa fa-btn fa-user"></i>Profile</a></li>
                             <li><a href="{{ url('#') }}"><i class="fa fa-btn fa-sign-out"></i>My homestay</a>
                             </li>
+                            <li><a href="{{ url('add') }}"><i class="fa fa-btn"></i>Create homestay</a></li>
                             <li><a href="{{ url('auth/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
                         </ul>
                     </li>

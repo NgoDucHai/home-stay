@@ -40,7 +40,7 @@
                         <div class="col-md-4">
                             <div class="art-header">
                                 <div class="entry-title">
-                                    <h2>{{$apartmentDetail->name}}</h2>
+                                    <h2 class="cursive-font white">{{$apartmentDetail->name}}</h2>
                                 </div>
                                 <p>{{$apartmentDetail->description}}</p>
                                 Price: {{$apartmentDetail->price}}<br>
@@ -73,10 +73,10 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title text-center" id="myModalLabel">Gui mot vai loi nhan den cho chu nha</h4>
+                    <h4 class="modal-title text-center" id="myModalLabel">Gửi lời nhắn của bạn tới chủ nhà</h4>
                 </div>
                 <div class="modal-body">
-                    <form role="form">
+                    <form role="form" id="showmessage">
                         <textarea class="form-control" rows="4" name="message" id="message"></textarea>
                         <br>
                         <div class="col-sm-4 col-sm-offset-4">
@@ -84,6 +84,17 @@
                         </div>
                         <div class="clearfix"></div>
                     </form>
+                    <div class="success">
+                        <h2 class="cursive-font text-center" style="color: springgreen">Congratulations!</h2> <br>
+                        <div style="width: 150px;" class="col-md-4 col-md-offset-4">
+                            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                 viewBox="0 0 98.5 98.5" enable-background="new 0 0 98.5 98.5" xml:space="preserve">
+                                <path stroke-miterlimit="10" d="M81.7,17.8C73.5,9.3,62,4,49.2,4
+                            C24.3,4,4,24.3,4,49.2s20.3,45.2,45.2,45.2s45.2-20.3,45.2-45.2c0-8.6-2.4-16.6-6.5-23.4l0,0L45.6,68.2L24.7,47.3"/>
+                            </svg>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -93,6 +104,7 @@
 @section('scripts')
     <script>
         (function() {
+            $('.success').hide();
             $("#btn-apply").click(function(e){
                 e.preventDefault();
                 var apartmentId = $(this).val();
@@ -102,6 +114,10 @@
                     data: {
                         apartmentId: apartmentId ,
                         message: message
+                    },
+                    success:function(data) {
+                        $('#showmessage').hide(500);
+                        $('.success').show(500);
                     }
                 });
             });
