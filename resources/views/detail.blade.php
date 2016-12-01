@@ -86,13 +86,13 @@
     <div class="row">
         <div class="col-md-12">
             <div class="container">
-                <div class="row">
+                <div class="row"><br>
                     <div class="col-sm-8">
-                        <h2 class=""> {{$apartmentDetail->name}}</h2>
+                        <h2 class="lobster-font"> {{$apartmentDetail->name}}</h2>
                         <p>{{$apartmentDetail->description}}</p>
                     </div>
                     <div class="col-sm-4">
-                        <h2>Liên hệ</h2>
+                        <h2 class="lobster-font">Liên hệ</h2>
                         <address>
                             <i class="fa fa-user" aria-hidden="true"></i> : <strong>{{$apartmentDetail->owner->name}}</strong>
                             <br><i class="fa fa-history" aria-hidden="true"></i> : {{$apartmentDetail->owner->age}}
