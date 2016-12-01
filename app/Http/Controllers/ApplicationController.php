@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\HomeStay\Apartment\ApartmentRepository;
 use App\HomeStay\Application\ApplicationWorkFlow;
 use App\User;
+use DB;
 use Illuminate\Http\Request;
 use Mail;
 use Response;
@@ -70,6 +71,19 @@ class ApplicationController extends Controller
 
             $m->to($owner->getEmail(), $owner->getName())->subject('Yêu cầu thuê phòng Homestay');
         });
+    }
+
+    public function choose($id)
+    {
+        if ($user = \Auth::user()){
+            return redirect('/auth/login');
+        }
+        $application = $this->applicationWorkFlow->getApplicationById($id);
+        $applicant = DB::table('users')->where('id', $application->getUserID())->first();
+        return view('choose',[
+            'applicant'     => $applicant,
+            'message'       => $application->getMessage()
+        ]);
     }
 
     /**

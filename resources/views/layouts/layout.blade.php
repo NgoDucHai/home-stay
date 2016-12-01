@@ -22,7 +22,8 @@
 
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Kaushan+Script" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Tinos" rel="stylesheet">
     <!-- Animate.css -->
     <link rel="stylesheet" href="{{asset('css/animate.css')}}">
     <!-- Icomoon Icon Fonts-->
@@ -46,6 +47,9 @@
     <link href='https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.css' rel='stylesheet' />
     <!-- dropzone-->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.0.1/min/dropzone.min.css" rel="stylesheet">
+
+    <!-- font-awesome-->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
     <!-- parsley -->
     <link rel="stylesheet" href="{{asset('css/parsley.css')}}">
     <!-- Theme style  -->

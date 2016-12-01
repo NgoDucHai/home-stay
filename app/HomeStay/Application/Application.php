@@ -75,9 +75,21 @@ class Application extends Model
         return $this->getAttribute('message');
     }
 
+    /**
+     * @return mixed
+     */
+
     public function getId()
     {
         return $this->getAttribute('id');
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUserID()
+    {
+        return $this->getAttribute('user_id');
     }
 
 }

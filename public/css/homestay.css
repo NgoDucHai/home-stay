@@ -181,3 +181,22 @@ form#search select option {
     0% {stroke-dashoffset: 745.74853515625;}
     100% {stroke-dashoffset: 0;}
 }
+
+.list-unstyled {
+    padding-left: 0;
+    list-style: none;
+}
+
+.list-unstyled i {
+    margin-right: 6px;
+}
+
+.img-center {
+    margin: 0 auto;
+}
+
+.ratings {
+    padding-right: 10px;
+    padding-left: 10px;
+    color: #FBB448;
+}

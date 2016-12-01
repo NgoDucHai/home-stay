@@ -7,27 +7,26 @@
                 <form action="/search" method="get" id="search">
                     <div class="scroll">
                         <div class="form-group">
-                            <label for="city">Select State:</label>
+                            <label for="city">Tỉnh/Thành phố</label>
                             <select name="city" class="form-control">
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="title">Select District:</label>
+                            <label for="title">Quận/Huyện</label>
                             <select name="district" class="form-control">
-                                <option value="">--- Select District ---</option>
+                                <option value="" class="tinos-font">--- Chọn Quận/Huyện ---</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="title">Select Province:</label>
+                            <label for="title">Xã/Phường</label>
                             <select name="province" class="form-control">
-                                <option value="">--- Select Province ---</option>
+                                <option value="">--- Chọn Xã/Phường ---</option>
                             </select>
                         </div>
                         <div class="row form-group">
                             <div class="col-md-12">
-                                <label for="activities">Persons</label>
+                                <label for="activities">Chọn số người</label>
                                 <select name="capacity" id="activities" class="form-control">
-                                    <option value="">Persons</option>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
                                     <option value="3">3</option>
@@ -38,13 +37,13 @@
                         </div>
                         <div class="row form-group">
                             <div class="col-md-12">
-                                <label for="start-date">Start Date</label>
+                                <label for="start-date">Ngày bắt đầu</label>
                                 <input type="text"  name="available_from" id="start-date" class="form-control">
                             </div>
                         </div>
                         <div class="row form-group">
                             <div class="col-md-12">
-                                <label for="end-date">End Date</label>
+                                <label for="end-date">Ngày kết thúc</label>
                                 <input type="text" name="available_to" id="end-date" class="form-control">
                             </div>
                         </div>
@@ -52,7 +51,7 @@
                     <br>
                     <div class="row form-group">
                         <div class="col-md-12">
-                            <input type="submit" class="btn btn-primary btn-block" value="Find Now">
+                            <input type="submit" class="btn btn-primary btn-block" value="Tìm kiếm ngay">
                         </div>
                     </div>
                 </form>

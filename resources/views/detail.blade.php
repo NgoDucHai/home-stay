@@ -7,9 +7,12 @@
 @section('content')
     <header id="gtco-header" class="gtco-cover gtco-cover-md" role="banner" style="background-image: url({{asset('images/img_bg_11.jpg')}})" data-stellar-background-ratio="0.5">
         <div class="gtco-container">
-            <article id="main-content" style="margin-top: 10em;">
+            <article id="main-content" style="margin-top: 7em;">
                 <div class="row">
                     <div class="col-md-8">
+                        <div class="entry-title text-center">
+                            <h2 class="cursive-font white"><i class="fa fa-home" aria-hidden="true"></i> {{$apartmentDetail->name}}</h2>
+                        </div>
                         <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
                             <!-- Wrapper for slides -->
                             <div class="carousel-inner">
@@ -39,34 +42,72 @@
                         </div>
                         <div class="col-md-4">
                             <div class="art-header">
-                                <div class="entry-title">
-                                    <h2 class="cursive-font white">{{$apartmentDetail->name}}</h2>
+                                <div class="text-center">
+                                    <img class="img-circle img-responsive img-center" src="/upload/avatars/{{$apartmentDetail->owner->avatar}}" alt="">
+                                    <h3 class="white">{{$apartmentDetail->owner->name}}
+                                    </h3>
+                                    <span class="price cursive-font primary-color">$23.00</span>
+                                    <div class="ratings primary-color">
+                                        <p class="pull-right">15 reviews</p>
+                                        <p>
+                                            <span class="glyphicon glyphicon-star"></span>
+                                            <span class="glyphicon glyphicon-star"></span>
+                                            <span class="glyphicon glyphicon-star"></span>
+                                            <span class="glyphicon glyphicon-star"></span>
+                                            <span class="glyphicon glyphicon-star"></span>
+                                        </p>
+                                    </div>
+                                    <p>{{$apartmentDetail->owner->description}}</p>
                                 </div>
-                                <p>{{$apartmentDetail->description}}</p>
-                                Price: {{$apartmentDetail->price}}<br>
-                                Suc Chua: {{$apartmentDetail->capacities->from}} toi {{$apartmentDetail->capacities->to}}<br>
-                                Dia chi: <br>
-                                <hr>
-                                Ten: {{$apartmentDetail->owner->name}}<br>
-                                Email: {{$apartmentDetail->owner->email}}
-                                <hr>
-                                <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#applyModal">Dat phong</button>
+
+                                {{--<ul class="list-unstyled contact-list white">--}}
+                                    {{--<li class="email"><i class="fa fa-envelope"></i><a href="mailto: yourname@email.com">alan.doe@website.com</a></li>--}}
+                                    {{--<li class="phone"><i class="fa fa-phone"></i><a href="tel:0123 456 789">0123 456 789</a></li>--}}
+                                    {{----}}
+                                {{--</ul>--}}
+                                {{--<p>{{$apartmentDetail->description}}</p>--}}
+                                {{--Price: {{$apartmentDetail->price}}<br>--}}
+                                {{--Suc Chua: {{$apartmentDetail->capacities->from}} toi {{$apartmentDetail->capacities->to}}<br>--}}
+                                {{--Dia chi: <br>--}}
+                                {{--<hr>--}}
+                                {{--Ten: {{$apartmentDetail->owner->name}}<br>--}}
+                                {{--Email: {{$apartmentDetail->owner->email}}--}}
+                                {{--<hr>--}}
+                                <button type="button" class="btn btn-primary btn-block tinos-font" data-toggle="modal" data-target="#applyModal">Đặt phòng</button>
                             </div>
 
                         </div>
                     </div>
                 </div>
                 <hr>
-                <div class="row">
-                    <div class="col-md-12">
-                        <p class="excerpt center">This is a well that is a great spot for a business tagline or phone number for easy access!</p>
-                    </div>
-                </div>
             </article>
         </div>
-        <br>
     </header>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-8">
+                        <h2 class=""> {{$apartmentDetail->name}}</h2>
+                        <p>{{$apartmentDetail->description}}</p>
+                    </div>
+                    <div class="col-sm-4">
+                        <h2>Liên hệ</h2>
+                        <address>
+                            <i class="fa fa-user" aria-hidden="true"></i> : <strong>{{$apartmentDetail->owner->name}}</strong>
+                            <br><i class="fa fa-history" aria-hidden="true"></i> : {{$apartmentDetail->owner->age}}
+                            <br><i class="fa fa-phone" aria-hidden="true"></i> :</abbr>{{$apartmentDetail->owner->phone}}
+                            <br><i class="fa fa-envelope" aria-hidden="true"></i>:</abbr> <a href="mailto:#">{{$apartmentDetail->owner->email}}</a>
+                            <br><i class="fa fa-location-arrow" aria-hidden="true"></i> : Beverly Hills, CA 90210
+                            <br>
+                        </address>
+                    </div>
+                </div>
 
+
+            </div>
+        </div>
+    </div>
     <!-- Modal -->
     <div class="modal fade" id="applyModal" tabindex="-1" role="dialog" aria-labelledby="applyModalLabel">
         <div class="modal-dialog" role="document">

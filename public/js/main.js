@@ -326,7 +326,7 @@
 			dataType: "json",
 			success:function(data) {
 				$('select[name="city"]').empty();
-				$('select[name="city"]').append('<option value="">--- Select City ---</option>');
+				$('select[name="city"]').append('<option value="">--- Chọn Tỉnh/Thành phố ---</option>');
 				$.each(data, function(key, value) {
 					$('select[name="city"]').append('<option value="'+ value.code +'" city="'+value.name+'">' +value.prefix +' '+ value.name +'</option>');
 				});
@@ -345,7 +345,7 @@
 					dataType: "json",
 					success:function(data) {
                        $('select[name="district"]').empty();
-						$('select[name="district"]').append('<option value="">--- Select District ---</option>');
+						$('select[name="district"]').append('<option value="">--- Chọn Quận/Huyện ---</option>');
                        $.each(data, function(key, value) {
                            $('select[name="district"]').append('<option value="'+ value.code +'" district="'+value.name+'">' +value.prefix +' '+ value.name +'</option>');
                        });
@@ -368,7 +368,7 @@
                     dataType: "json",
                     success:function(data) {
                         $('select[name="province"]').empty();
-						$('select[name="province"]').append('<option value="">--- Select Province ---</option>');
+						$('select[name="province"]').append('<option value="">--- Chọn Xã/Phường ---</option>');
                         $.each(data, function(key, value) {
                             $('select[name="province"]').append('<option value="'+ value.code +'" province="'+value.name+'">' +value.prefix +' '+ value.name +'</option>');
                         });

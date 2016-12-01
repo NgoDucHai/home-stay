@@ -44,6 +44,7 @@ Route::group(['middleware' => ['web']], function () {
     // application
     Route::post('/application', 'ApplicationController@create');
     Route::get('/sendemail', 'ApplicationController@sendEmial');
+    Route::get('/application/{id}', 'ApplicationController@choose');
     Route::post('/application/{id}/accept', 'ApplicationController@accept');
     Route::post('/application/{id}/cancel', 'ApplicationController@cancel');
     Route::post('/application/{id}/deal', 'ApplicationController@deal');
