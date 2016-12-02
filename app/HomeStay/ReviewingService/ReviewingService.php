@@ -35,15 +35,15 @@ class ReviewingService
     }
 
     /**
-     * @param User $reviewer
-     * @param Apartment $apartment
+     * @param $reviewerId
+     * @param $apartmentId
      * @param Review $review
      */
-    public function doReview(User $reviewer, Apartment $apartment, Review $review)
+    public function doReview($reviewerId, $apartmentId, Review $review)
     {
         $this->connection->table('reviews')->insert([
-            'user_id'      => $reviewer->getId(),
-            'apartment_id' => $apartment->getId(),
+            'user_id'      => $reviewerId,
+            'apartment_id' => $apartmentId,
             'rate'         => $review->getRating()->getValue(),
             'comment'      => $review->getComment()->getContent()
         ]);

@@ -90,6 +90,7 @@
                     <div class="col-sm-8">
                         <h2 class="lobster-font"> {{$apartmentDetail->name}}</h2>
                         <p>{{$apartmentDetail->description}}</p>
+                        <button type="button" class="btn btn-primary btn-block tinos-font" data-toggle="modal" data-target="#reviewModal">Review</button>
                     </div>
                     <div class="col-sm-4">
                         <h2 class="lobster-font">Liên hệ</h2>
@@ -140,11 +141,50 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="reviewModal" tabindex="-1" role="dialog" aria-labelledby="reviewModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title text-center" id="myModalLabel">Nhận xét đáng giá của bạn về {{$apartmentDetail->name}}</h4>
+                </div>
+                <div class="modal-body">
+                    <form role="form" id="showReview">
+                        <div id="rating"></div>
+                        <textarea class="form-control" rows="4" name="comment" id="comment"></textarea>
+                        <br>
+                        <div class="col-sm-4 col-sm-offset-4">
+                            <button class="btn btn-primary btn-block" type="button" id="btn-review" value="{{$apartmentDetail->id}}">Send</button>
+                        </div>
+                        <div class="clearfix"></div>
+                    </form>
+                    {{--<div class="success">--}}
+                        {{--<h2 class="cursive-font text-center" style="color: springgreen">Congratulations!</h2> <br>--}}
+                        {{--<div style="width: 150px;" class="col-md-4 col-md-offset-4">--}}
+                            {{--<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"--}}
+                                 {{--viewBox="0 0 98.5 98.5" enable-background="new 0 0 98.5 98.5" xml:space="preserve">--}}
+                                {{--<path stroke-miterlimit="10" d="M81.7,17.8C73.5,9.3,62,4,49.2,4--}}
+                            {{--C24.3,4,4,24.3,4,49.2s20.3,45.2,45.2,45.2s45.2-20.3,45.2-45.2c0-8.6-2.4-16.6-6.5-23.4l0,0L45.6,68.2L24.7,47.3"/>--}}
+                            {{--</svg>--}}
+                        {{--</div>--}}
+                        {{--<div class="clearfix"></div>--}}
+                    {{--</div>--}}
+                </div>
+            </div>
+        </div>
+    </div>
+
 @endsection
 
 @section('scripts')
     <script>
         (function() {
+
+            $('#rating').raty({
+                starType: 'i'
+            });
+
+
             $('.success').hide();
             $("#btn-apply").click(function(e){
                 e.preventDefault();
@@ -159,6 +199,23 @@
                     success:function(data) {
                         $('#showmessage').hide(500);
                         $('.success').show(500);
+                    }
+                });
+            });
+            $("#btn-review").click(function(e){
+                e.preventDefault();
+                var rate = $('#rating').raty('score');
+                var apartmentId = $(this).val();
+                var comment = $('#comment').val();
+                $.ajax({type: "POST",
+                    url: "/review",
+                    data: {
+                        apartmentId : apartmentId ,
+                        comment     : comment,
+                        rate        : rate
+                    },
+                    success:function(data) {
+                        $('#reviewModal').modal('hide')
                     }
                 });
             });

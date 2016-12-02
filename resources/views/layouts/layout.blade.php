@@ -43,6 +43,8 @@
     <link rel="stylesheet" href="{{asset('css/owl.carousel.min.css')}}">
     <link rel="stylesheet" href="{{asset('css/owl.theme.default.min.css')}}">
 
+    <!-- Raty  -->
+    <link rel="stylesheet" href="{{asset('bower_components/raty/lib/jquery.raty.css')}}">
     <!--map box-->
     <link href='https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.css' rel='stylesheet' />
     <!-- dropzone-->
@@ -113,11 +115,14 @@
 <script src="{{asset('js/parsley.min.js')}}"></script>
 <!--bootstrap3-typeahead-->
 <script src="{{asset('js/bootstrap3-typeahead.min.js')}}"></script>
+<!-- Raty-->
+<script src="{{asset('bower_components/raty/lib/jquery.raty.js')}}"></script>
 
 <!-- map box -->
 <script src='https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.js'></script>
 <!-- dropzone -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.2.0/min/dropzone.min.js"></script>
+
 
 <!-- Main -->
 <script src="{{asset('js/main.js')}}"></script>
