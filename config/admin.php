@@ -1,6 +1,10 @@
 <?php
 
 return [
+    'accounts' => [
+        'haingo6394@gmail.com',
+        'hai00@gmail.com'
+    ],
     'prefix' => 'admin',
     'resources' => [
         'apartment'     => App\AdminApi\Controllers\ApartmentController::class,

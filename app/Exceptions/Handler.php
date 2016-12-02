@@ -2,6 +2,7 @@
 
 namespace App\Exceptions;
 
+use App\AdminApi\AdminOnlyException;
 use Exception;
 use Illuminate\Http\Response;
 use Illuminate\Validation\ValidationException;
@@ -22,6 +23,7 @@ class Handler extends ExceptionHandler
         HttpException::class,
         ModelNotFoundException::class,
         ValidationException::class,
+        AdminOnlyException::class
     ];
 
     /**
@@ -46,6 +48,10 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $e)
     {
+        if ($e instanceof AdminOnlyException)
+        {
+            return \Response::json(['error' => 'Forbidden', 'message' => 'Administrator action only'], 403);
+        }
         if ($e instanceof ModelNotFoundException && $request->route()->getPrefix() == '/' . config('admin.prefix'))
         {
             return \Response::json(['error' => 'NotFound', 'message' => 'Entity does not existed'], 404);
