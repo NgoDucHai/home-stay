@@ -54,4 +54,5 @@ class ReviewingService
         $rawData = $this->connection->table('reviews')->where('apartment_id', $id)->get();
         return $this->factory->factoryList($rawData);
     }
+
 }

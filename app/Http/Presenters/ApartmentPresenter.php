@@ -21,7 +21,12 @@ class ApartmentPresenter implements Jsonable
 
     public function toJson($options = 0)
     {
-
+        $reviews = $this->apartment->getReviews();
+        $total = 0;
+        foreach ($reviews as $value) {
+            $total += $value['rate'];
+        }
+        $rate = (float)($total/count($reviews));
         return json_encode([
             'id'            => $this->apartment->getId(),
             'owner' => $this->apartment->getOwner()->getAttributes(),
@@ -41,7 +46,9 @@ class ApartmentPresenter implements Jsonable
             'city'      => $this->apartment->getCity(),
             'district'  => $this->apartment->getDistrict(),
             'province'  => $this->apartment->getProvince(),
-            'review'    => $this->apartment->getReviews()
+            'review'    => $reviews,
+            'rate'      => $rate,
+            'totalreview' => count($reviews)
 
         ], $options);
     }

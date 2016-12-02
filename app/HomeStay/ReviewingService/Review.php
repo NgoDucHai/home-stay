@@ -59,4 +59,12 @@ class Review
         $this->reviewer = $reviewer;
         return $this;
     }
+
+    /**
+     * @return reviewer
+     */
+    public function getReviewer()
+    {
+        return $this->reviewer;
+    }
 }

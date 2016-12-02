@@ -46,15 +46,11 @@
                                     <img class="img-circle img-responsive img-center" src="/upload/avatars/{{$apartmentDetail->owner->avatar}}" alt="">
                                     <h3 class="white">{{$apartmentDetail->owner->name}}
                                     </h3>
-                                    <span class="price cursive-font primary-color">$23.00</span>
+                                    <span class="price cursive-font primary-color">${{$apartmentDetail->price}}</span>
                                     <div class="ratings primary-color">
-                                        <p class="pull-right">15 reviews</p>
+                                        <p class="pull-right">{{$apartmentDetail->totalreview}} reviews</p>
                                         <p>
-                                            <span class="glyphicon glyphicon-star"></span>
-                                            <span class="glyphicon glyphicon-star"></span>
-                                            <span class="glyphicon glyphicon-star"></span>
-                                            <span class="glyphicon glyphicon-star"></span>
-                                            <span class="glyphicon glyphicon-star"></span>
+                                        <div class="stars_small" data-rating="{{$apartmentDetail->rate}}"></div>
                                         </p>
                                     </div>
                                     <p>{{$apartmentDetail->owner->description}}</p>
@@ -90,6 +86,29 @@
                     <div class="col-sm-8">
                         <h2 class="lobster-font"> {{$apartmentDetail->name}}</h2>
                         <p>{{$apartmentDetail->description}}</p>
+                        <div class="row review">
+                            @foreach ($apartmentDetail->review as $r => $review)
+                                <div class="col-sm-2">
+                                    <div class="thumbnail">
+                                        <img class="img-responsive user-photo" src="/upload/avatars/{{$review->user->avatar}}"">
+                                    </div><!-- /thumbnail -->
+                                </div><!-- /col-sm-1 -->
+
+                                <div class="col-sm-10">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <strong>{{$review->user->name}}</strong>
+                                            <span>{{ date('F d, Y', strtotime($review->user->created_at)) }}</span>
+                                            <div class="stars_small pull-right" data-rating="{{$review->rate}}"></div>
+                                        </div>
+                                        <div class="panel-body">
+                                            {{$review->comment}}
+                                        </div><!-- /panel-body -->
+                                    </div><!-- /panel panel-default -->
+                                </div><!-- /col-sm-5 -->
+                            @endforeach
+
+                        </div>
                         <button type="button" class="btn btn-primary btn-block tinos-font" data-toggle="modal" data-target="#reviewModal">Review</button>
                     </div>
                     <div class="col-sm-4">
@@ -158,17 +177,6 @@
                         </div>
                         <div class="clearfix"></div>
                     </form>
-                    {{--<div class="success">--}}
-                        {{--<h2 class="cursive-font text-center" style="color: springgreen">Congratulations!</h2> <br>--}}
-                        {{--<div style="width: 150px;" class="col-md-4 col-md-offset-4">--}}
-                            {{--<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"--}}
-                                 {{--viewBox="0 0 98.5 98.5" enable-background="new 0 0 98.5 98.5" xml:space="preserve">--}}
-                                {{--<path stroke-miterlimit="10" d="M81.7,17.8C73.5,9.3,62,4,49.2,4--}}
-                            {{--C24.3,4,4,24.3,4,49.2s20.3,45.2,45.2,45.2s45.2-20.3,45.2-45.2c0-8.6-2.4-16.6-6.5-23.4l0,0L45.6,68.2L24.7,47.3"/>--}}
-                            {{--</svg>--}}
-                        {{--</div>--}}
-                        {{--<div class="clearfix"></div>--}}
-                    {{--</div>--}}
                 </div>
             </div>
         </div>
@@ -184,6 +192,15 @@
                 starType: 'i'
             });
 
+            $('.stars_small').each(function() {
+                $(this).raty({
+                    readOnly : true,
+                    half  : true,
+                    score : $(this).attr('data-rating'),
+                    space : false,
+                    starType: 'i'
+                });
+            });
 
             $('.success').hide();
             $("#btn-apply").click(function(e){
@@ -215,7 +232,8 @@
                         rate        : rate
                     },
                     success:function(data) {
-                        $('#reviewModal').modal('hide')
+                        $('#reviewModal').modal('hide');
+                        location.reload();
                     }
                 });
             });

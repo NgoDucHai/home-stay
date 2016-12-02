@@ -109,9 +109,17 @@ class ApartmentController extends Controller
     {
         $apartment = $this->apartmentRepository->get($id);
 
-        $reviews = $this->reviewingService->getReviewById($id);
-        if($reviews->count()){
-            $apartment->setReviews($reviews);
+        $reviewsObj = $this->reviewingService->getReviewById($id);
+        $reviews = [];
+
+        $reviews = $reviewsObj->map(function ($item, $key) {
+            $i['rate'] = $item->getRating()->getValue();
+            $i['comment'] = $item->getComment()->getContent();
+            $i['user'] = $item->getReviewer()->getAttributes();
+            return $i;
+        });
+        if($reviewsObj->count()){
+            $apartment->setReviews($reviews->toArray());
         }
         if ( ! $apartment)
         {
