@@ -27,7 +27,7 @@ abstract class RestController extends Controller
     }
 
     /**
-     *
+     * @return Model[]
      */
     public function get()
     {
@@ -35,12 +35,11 @@ abstract class RestController extends Controller
     }
 
     /**
-     * @param Model $model
-     *
      * @return Model
      */
-    public function create(Model $model)
+    public function create()
     {
+        $model = $this->getModelInstance()->newInstance(request()->all());
         $model->save();
 
         return $model;
@@ -51,25 +50,31 @@ abstract class RestController extends Controller
      */
     public function detail($modelId)
     {
-        return $this->getModelInstance()->firstOrFail('id', '=', $modelId);
+        return $this->getModelInstance()->where('id', '=', $modelId)->firstOrFail();
     }
 
     /**
-     * @param Model $model
+     * @param $modelId
      * @return Model
      */
-    public function update(Model $model)
+    public function update($modelId)
     {
-        $model->save();
+        /** @var Model $model */
+        $model = $this->getModelInstance()->where('id', '=', $modelId)->firstOrFail();
+        $model->save(request()->all());
 
         return $model;
     }
 
     /**
      * @param $modelId
+     * @return Model
      */
     public function delete($modelId)
     {
-        $this->getModelInstance()->delete('id', '=', $modelId);
+        $model = $this->getModelInstance()->firstOrFail($modelId);
+        $model->delete();
+
+        return $model;
     }
 }
