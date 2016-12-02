@@ -168,6 +168,10 @@ return [
         App\HomeStay\Application\ApplicationWorkFlowServiceProvider::class,
         App\HomeStay\ReviewingService\ReviewingServiceProvider::class,
 
+        /*
+         * AdminApi
+         */
+        App\AdminApi\AdminApiServiceProvider::class,
 
     ],
 
