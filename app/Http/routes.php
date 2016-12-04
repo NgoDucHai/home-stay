@@ -64,7 +64,9 @@ Route::group(['middleware' => ['web']], function () {
 
     //  user
     Route::get('/profile', 'UserController@profile');
-
+    Route::get('/profile/{id}', 'UserController@get');
+    Route::post('/profile/{id}', 'UserController@update');
+    Route::post('/avatar', 'UserController@avatar');
     //review
     Route::post('/review', 'ReviewController@store');
 

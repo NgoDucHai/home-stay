@@ -10,9 +10,6 @@
             <article id="main-content" style="margin-top: 7em;">
                 <div class="row">
                     <div class="col-md-8">
-                        <div class="entry-title text-center">
-                            <h2 class="cursive-font white"><i class="fa fa-home" aria-hidden="true"></i> {{$apartmentDetail->name}}</h2>
-                        </div>
                         <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
                             <!-- Wrapper for slides -->
                             <div class="carousel-inner">
@@ -87,27 +84,28 @@
                         <h2 class="lobster-font"> {{$apartmentDetail->name}}</h2>
                         <p>{{$apartmentDetail->description}}</p>
                         <div class="row review">
-                            @foreach ($apartmentDetail->review as $r => $review)
-                                <div class="col-sm-2">
-                                    <div class="thumbnail">
-                                        <img class="img-responsive user-photo" src="/upload/avatars/{{$review->user->avatar}}"">
-                                    </div><!-- /thumbnail -->
-                                </div><!-- /col-sm-1 -->
+                            @if ($apartmentDetail->review)
+                                @foreach ($apartmentDetail->review as $r => $review)
+                                    <div class="col-sm-2">
+                                        <div class="thumbnail">
+                                            <img class="img-responsive user-photo" src="/upload/avatars/{{$review->user->avatar}}">
+                                        </div><!-- /thumbnail -->
+                                    </div><!-- /col-sm-1 -->
 
-                                <div class="col-sm-10">
-                                    <div class="panel panel-default">
-                                        <div class="panel-heading">
-                                            <strong>{{$review->user->name}}</strong>
-                                            <span>{{ date('F d, Y', strtotime($review->user->created_at)) }}</span>
-                                            <div class="stars_small pull-right" data-rating="{{$review->rate}}"></div>
-                                        </div>
-                                        <div class="panel-body">
-                                            {{$review->comment}}
-                                        </div><!-- /panel-body -->
-                                    </div><!-- /panel panel-default -->
-                                </div><!-- /col-sm-5 -->
-                            @endforeach
-
+                                    <div class="col-sm-10">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <strong>{{$review->user->name}}</strong>
+                                                <span>{{ date('F d, Y', strtotime($review->user->created_at)) }}</span>
+                                                <div class="stars_small pull-right" data-rating="{{$review->rate}}"></div>
+                                            </div>
+                                            <div class="panel-body">
+                                                {{$review->comment}}
+                                            </div><!-- /panel-body -->
+                                        </div><!-- /panel panel-default -->
+                                    </div><!-- /col-sm-5 -->
+                                @endforeach
+                            @endif
                         </div>
                         <button type="button" class="btn btn-primary btn-block tinos-font" data-toggle="modal" data-target="#reviewModal">Review</button>
                     </div>
@@ -134,15 +132,19 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title text-center" id="myModalLabel">Gửi lời nhắn của bạn tới chủ nhà</h4>
+                    <h4 class="modal-title text-center lobster-font" id="myModalLabel">Gửi lời nhắn của bạn tới chủ nhà</h4>
                 </div>
                 <div class="modal-body">
                     <form role="form" id="showmessage">
-                        <textarea class="form-control" rows="4" name="message" id="message"></textarea>
-                        <br>
-                        <div class="col-sm-4 col-sm-offset-4">
-                            <button class="btn btn-primary btn-block" type="button" id="btn-apply" value="{{$apartmentDetail->id}}">Send</button>
-                        </div>
+                            <br style="clear:both">
+                            <div class="form-group ">
+                                <textarea class="form-control input-sm "  name="message"  id="message" placeholder="Message" maxlength="140" rows="7"></textarea>
+                                <span class="help-block"><p id="characterLeft" class="help-block ">You have reached the limit</p></span>
+                            </div>
+                            <br style="clear:both">
+                            <div class="col-sm-4 col-sm-offset-4">
+                                <button class="btn btn-primary btn-block " id="btn-apply" value="{{$apartmentDetail->id}}" name="btnSubmit" type="button" style="height:35px"> Send</button>
+                            </div>
                         <div class="clearfix"></div>
                     </form>
                     <div class="success">
@@ -165,13 +167,17 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title text-center" id="myModalLabel">Nhận xét đáng giá của bạn về {{$apartmentDetail->name}}</h4>
+                    <h4 class="modal-title text-center lobster-font" id="myModalLabel">Nhận xét đáng giá của bạn về {{$apartmentDetail->name}}</h4>
                 </div>
                 <div class="modal-body">
                     <form role="form" id="showReview">
                         <div id="rating"></div>
-                        <textarea class="form-control" rows="4" name="comment" id="comment"></textarea>
-                        <br>
+                        <br style="clear:both">
+                        <div class="form-group ">
+                            <textarea class="form-control input-sm "  name="comment"  id="comment" placeholder="Comment" maxlength="140" rows="7"></textarea>
+                            <span class="help-block"><p id="characterLeft1" class="help-block ">You have reached the limit</p></span>
+                        </div>
+                        <br style="clear:both">
                         <div class="col-sm-4 col-sm-offset-4">
                             <button class="btn btn-primary btn-block" type="button" id="btn-review" value="{{$apartmentDetail->id}}">Send</button>
                         </div>
@@ -236,6 +242,34 @@
                         location.reload();
                     }
                 });
+            });
+            $('#characterLeft').text('140 characters left');
+            $('#message').keyup(function () {
+                var max = 140;
+                var len = $(this).val().length;
+                if (len >= max) {
+                    $('#characterLeft').text('You have reached the limit');
+                    $('#characterLeft').addClass('red');
+                }
+                else {
+                    var ch = max - len;
+                    $('#characterLeft').text(ch + ' characters left');
+                    $('#characterLeft').removeClass('red');
+                }
+            });
+            $('#characterLeft1').text('140 characters left');
+            $('#comment').keyup(function () {
+                var max = 140;
+                var len = $(this).val().length;
+                if (len >= max) {
+                    $('#characterLeft1').text('You have reached the limit');
+                    $('#characterLeft1').addClass('red');
+                }
+                else {
+                    var ch = max - len;
+                    $('#characterLeft1').text(ch + ' characters left');
+                    $('#characterLeft1').removeClass('red');
+                }
             });
         })();
     </script>

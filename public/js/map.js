@@ -46,18 +46,17 @@
 // Listen for individual marker clicks.
 		myLayer.on('click',function(e) {
 			// Force the popup closed.
-			e.layer.closePopup();
+			// e.layer.closePopup();
             map.panTo(e.layer.getLatLng());
 
 
 			var feature = e.layer.feature;
             var slideshowContent = '';
-            console.log(feature.properties);
             for(var i = 0; i < feature.properties.image.length; i++) {
                 var img = '/upload/'+feature.properties.image[i];
 
                 slideshowContent += '<div class="image' + (i === 0 ? ' active' : '') + '">' +
-                    '<img src="'+ img + '" style="width: 200px"/>' +
+                    '<img src="'+ img + '" style="width: 250px"/>' +
                     '</div>';
             }
 			var content = '<div class="thumbnail popup" id="' + feature.properties.id + '">'+
@@ -65,10 +64,10 @@
                     slideshowContent +
                 '</div>' +
                 '<div class="caption">'+
-                '<h3>'+ feature.properties.title +'</h3>'+
-                '<p style="color: #0b0b0b">'+feature.properties.description+'</p>'+
-                '<p style="color: #0b0b0b">'+feature.properties.price+'</p>'+
-                '<a href="/apartment/'+feature.properties.id+'" class="btn btn-default" role="button">Detail</a></p>'+
+                '<h3 class="lobster-font " style="color: #FBB448;">'+ feature.properties.title +'</h3>'+
+                // '<p style="color: #0b0b0b">'+feature.properties.description+'</p>'+
+                '<p class="cursive-font" style="color: #FBB448;">'+'$'+feature.properties.price+'</p>'+
+                '<a href="/apartment/'+feature.properties.id+'" class="btn btn-primary white" role="button">Detail</a></p>'+
                 '</div>'+
                 '<div class="cycle">' +
                 '<a href="#" class="prev">&laquo; Previous</a>' +

@@ -17,26 +17,26 @@
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <h2>Information</h2>
+                    <h2 class="lobster-font" style="color: #FBB448;">Information</h2>
                     <div class="form-group">
-                        <label for="name">Name:</label>
-                        <input type="text" class="form-control" name="name" id="name" placeholder="Name" required>
+                        <label for="name" class="white">Name:</label>
+                        <input type="text" class="form-control white" name="name" id="name" placeholder="Name" required>
                     </div>
                     <div class="form-group">
-                        <label for="description">Description:</label>
-                        <textarea class="form-control" rows="3" name="description" required></textarea>
+                        <label for="description"  class="white">Description:</label>
+                        <textarea class="form-control white" rows="3" name="description" required></textarea>
                     </div>
                     <div class="form-group">
-                        <label for="start-date">Start Date</label>
-                        <input type="text"  name="available_from" id="start-date" class="form-control" required>
+                        <label for="start-date"  class="white">Start Date</label>
+                        <input type="text"  name="available_from" id="start-date" class="form-control white" required>
                     </div>
                     <div class="form-group">
-                        <label for="end-date">End Date</label>
-                        <input type="text" name="available_to" id="end-date" class="form-control" required>
+                        <label for="end-date"  class="white" >End Date</label>
+                        <input type="text" name="available_to" id="end-date" class="form-control white" required>
                     </div>
                     <div class="form-group">
-                        <label for="availableForm">Available Form:</label>
-                        <select class="form-control" name="capacity_from" required>
+                        <label for="availableForm"  class="white">Available Form:</label>
+                        <select class="form-control white" name="capacity_from" required>
                             <option>1</option>
                             <option>2</option>
                             <option>3</option>
@@ -45,8 +45,8 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="description">Available To:</label>
-                        <select class="form-control" name="capacity_to" required>
+                        <label for="description"  class="white">Available To:</label>
+                        <select class="form-control white" name="capacity_to" required>
                             <option>1</option>
                             <option>2</option>
                             <option>3</option>
@@ -55,46 +55,48 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="c2">Price</label>
+                        <label for="c2"  class="white">Price</label>
                         <div class="input-group">
-                            <span class="input-group-addon" style="background-color: #4C443E;border: 1px solid #463D31;">$</span>
-                            <input name="price" type="number" value="1000" min="0" step="0.01" required data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="c2" />
+                            <span class="input-group-addon white" style="background-color: #4C443E;border: 1px solid #463D31;">$</span>
+                            <input name="price" type="number" value="1000" min="0" step="0.01" required data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency white" id="c2" />
                         </div>
                     </div>
                 </div>
                 <div class="clearfix"></div>
                 <hr>
-                <h2>Address</h2>
-                <div class="col-md-6">
+                <h2 class="lobster-font" style="color: #FBB448;">Address</h2>
+                <div class="col-md-6 address ">
 
                     <div class="form-group">
-                        <label for="city">Select State:</label>
-                        <select name="city" class="form-control" required>
+                        <label for="city"  class="white">Select State:</label>
+                        <select name="city" class="form-control white" required>
                             <option value="">--- Select City ---</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="title">Select District:</label>
-                        <select name="district" class="form-control" required>
+                        <label for="title"  class="white">Select District:</label>
+                        <select name="district" class="form-control white" required>
                             <option value="">--- Select District ---</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="title">Select Province:</label>
-                        <select name="province" class="form-control" required>
+                        <label for="title"  class="white">Select Province:</label>
+                        <select name="province" class="form-control white" required>
                             <option value="">--- Select Province ---</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="name">House Number:</label>
-                        <input type="text" class="form-control" required name="house-number" id="house-number" placeholder="House number">
+                        <label for="name" class="white">House Number:</label>
+                        <input type="text" class="form-control white" required name="house-number" id="house-number" placeholder="House number">
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div id='map' style="height: 300px;"></div>
                 </div>
                 <div class="clearfix"></div>
-                <button type="submit" id="submit-all" class="btn btn-default">Submit</button>
+                <div class="col-md-4 col-md-offset-4">
+                    <button type="submit" id="submit-all" class="btn btn-primary btn-block">Submit</button>
+                </div>
             </form>
             <div class="clearfix"></div>
             </div>

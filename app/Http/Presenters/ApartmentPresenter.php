@@ -23,10 +23,13 @@ class ApartmentPresenter implements Jsonable
     {
         $reviews = $this->apartment->getReviews();
         $total = 0;
-        foreach ($reviews as $value) {
-            $total += $value['rate'];
+        $rate = 0;
+        if(count($reviews) > 0){
+            foreach ($reviews as $value) {
+                $total += $value['rate'];
+            }
+            $rate = (float)($total/count($reviews));
         }
-        $rate = (float)($total/count($reviews));
         return json_encode([
             'id'            => $this->apartment->getId(),
             'owner' => $this->apartment->getOwner()->getAttributes(),

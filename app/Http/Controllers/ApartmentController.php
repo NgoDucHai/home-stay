@@ -110,9 +110,7 @@ class ApartmentController extends Controller
         $apartment = $this->apartmentRepository->get($id);
 
         $reviewsObj = $this->reviewingService->getReviewById($id);
-        $reviews = [];
-
-        $reviews = $reviewsObj->map(function ($item, $key) {
+        $reviews = $reviewsObj->map(function ($item) {
             $i['rate'] = $item->getRating()->getValue();
             $i['comment'] = $item->getComment()->getContent();
             $i['user'] = $item->getReviewer()->getAttributes();
