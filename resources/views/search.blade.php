@@ -16,7 +16,17 @@
             <hr>
             <div class="well well-sm">
                 <strong>Category Title</strong>
-                <div class="btn-group">
+                <div class="btn-group ">
+                    <button  class="btn btn-default btn-sm yellow" data-toggle="modal" data-target="#searchModal" >
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                        Search
+                    </button>
+                    <button  class="btn btn-default btn-sm yellow" data-toggle="modal" data-target="#searchNearModal" >
+                        <i class="fa fa-globe" aria-hidden="true"></i>
+                        Near
+                    </button>
+                </div>
+                <div class="btn-group hidden-xs pull-right">
                     <a href="#" id="list" class="btn btn-default btn-sm" >
                         <span class="glyphicon glyphicon-th-list"></span>
                         List
@@ -24,20 +34,11 @@
                     <a href="#" id="grid" class="btn btn-default btn-sm"><span
                                 class="glyphicon glyphicon-th"></span>Grid</a>
                 </div>
-                <div class="btn-group pull-right">
-                    <button  class="btn btn-default btn-sm yellow" data-toggle="modal" data-target="#searchModal" >
-                        <i class="fa fa-search" aria-hidden="true"></i>
-                        Search
-                    </button>
-                    <button  class="btn btn-default btn-sm yellow" data-toggle="modal" data-target="#searchModal" >
-                        <i class="fa fa-globe" aria-hidden="true"></i>
-                        Near
-                    </button>
-                </div>
+
             </div>
             <div id="products" class="row list-group">
                 @foreach (json_decode($listApartment,true) as $apartment)
-                    <div class="item  col-xs-4 col-lg-4">
+                    <div class="item  col-md-4">
                         <div class="thumbnail">
                             <img class="group list-group-image" src="/upload/{{json_decode($apartment)->images[0]}}" alt="" style="height: 250px; width: 300px;"/>
                             <div class="caption">
@@ -74,6 +75,15 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="searchNearModal" tabindex="-1" role="dialog" aria-labelledby="searchNearModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    @include('home.searchBoxNear')
+                </div>
+            </div>
+        </div>
+    </div>
 
 @endsection
 @section('scripts')
@@ -81,7 +91,18 @@
     <!-- Map -->
     <script src="{{asset('js/map.js')}}"></script>
     <script>
+        var getLatLong = function () {
+            $.ajax({type: "GET",
+                url: "http://freegeoip.net/json/",
+                success:function(data) {
+                    console.log(data);
+                    $('#searchNear').append('<input type="hidden" name="lat" value="'+ data.latitude +'">');
+                    $('#searchNear').append('<input type="hidden" name="lng" value="'+ data.longitude +'">');
+                }
+            });
+        };
         (function() {
+            getLatLong();
             $('#list').on('click', function (e) {
                 e.preventDefault();
                 $('#products .item').addClass('list-group-item');

@@ -109,4 +109,15 @@ class ApartmentAreaSearchCondition implements ApartmentSearchCondition
             $query->where('province', '=', $this->province);
         }
     }
+
+    /**
+     * @param Apartment[] $result
+     * @return Apartment[]
+     */
+    public function refineResult($result)
+    {
+        return $result;
+    }
+
+
 }

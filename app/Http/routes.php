@@ -2,6 +2,7 @@
 
 
 use App\Http\Middleware\searchApartmentMiddleware;
+use App\Http\Middleware\searchNearApartmentMiddleware;
 use App\Http\Middleware\storeApartmentMiddleware;
 
 Route::group(['middleware' => ['web']], function () {
@@ -36,9 +37,14 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('/dropzone/store', ['as'=>'dropzone.store','uses'=>'ImageController@store']);
 
     //    search
-    Route::get('/search', [
+    Route::get('/search/option', [
         'middleware' => searchApartmentMiddleware::class,
         'uses'       => 'ApartmentController@search'
+    ]);
+
+    Route::get('/search/near', [
+        'middleware' => searchNearApartmentMiddleware::class,
+        'uses'       => 'ApartmentController@searchNear'
     ]);
 
     // application

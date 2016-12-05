@@ -18,4 +18,10 @@ interface ApartmentSearchCondition
      * @param Builder $query
      */
     public function decorateQuery(Builder $query);
+
+    /**
+     * @param Apartment[] $result
+     * @return Apartment[]
+     */
+    public function refineResult($result);
 }

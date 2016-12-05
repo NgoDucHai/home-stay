@@ -62,7 +62,7 @@ class ApartmentFactory
     }
     /**
      * @param $rawApartments
-     * @return Collection
+     * @return Collection|Apartment[]
      */
     public function factoryList($rawApartments)
     {

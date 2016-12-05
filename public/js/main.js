@@ -301,6 +301,12 @@
         $('#end-date').datetimepicker({
             format: 'DD-MM-YYYY'
         });
+		$('#start-date-near').datetimepicker({
+			format: 'DD-MM-YYYY'
+		});
+		$('#end-date-near').datetimepicker({
+			format: 'DD-MM-YYYY'
+		});
 		$('#time').datetimepicker({
 			format: 'LT'	
 		});

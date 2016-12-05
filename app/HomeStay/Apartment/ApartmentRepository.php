@@ -40,9 +40,9 @@ class ApartmentRepository
     public function find(ApartmentSearchCondition $condition)
     {
         $query = $this->engine->buildQuery();
-
         $condition->decorateQuery($query);
-        return $this->factory->factoryList($query->get());
+
+        return $condition->refineResult($this->factory->factoryList($query->get()));
     }
 
     /**

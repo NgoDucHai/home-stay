@@ -4,6 +4,7 @@ namespace App\HomeStay\Apartment;
 
 use App\EarthGeometry\Earth;
 use Illuminate\Database\Query\Builder;
+use Illuminate\Support\Collection;
 
 /**
  * Class ApartmentNearbySearchCondition
@@ -11,6 +12,7 @@ use Illuminate\Database\Query\Builder;
  */
 class ApartmentNearbySearchCondition implements ApartmentSearchCondition
 {
+    protected $capacity;
     /**
      * @var Location
      */
@@ -24,22 +26,12 @@ class ApartmentNearbySearchCondition implements ApartmentSearchCondition
     /**
      * @var \DateTime
      */
-    private $availabelTo;
+    private $availableTo;
 
     /**
      * @var \DateTime
      */
-    private $availabelFrom;
-
-    /**
-     * @var integer
-     */
-    private $capacityFrom;
-
-    /**
-     * @var integer
-     */
-    private $capacityTo;
+    private $availableFrom;
 
     /**
      * ApartmentNearbySearchCondition constructor.
@@ -60,22 +52,19 @@ class ApartmentNearbySearchCondition implements ApartmentSearchCondition
      */
     public function availableIn(\DateTime $from = null, \DateTime $to = null)
     {
-        $this->availabelFrom = $from;
-        $this->availabelTo   = $to;
+        $this->availableFrom = $from;
+        $this->availableTo   = $to;
 
         return $this;
     }
 
     /**
-     * @param integer $from
-     * @param integer $to
-     * @return self
+     * @param null $capacity
+     * @return static
      */
-    public function hasCapacityFrom($from = null, $to = null)
+    public function hasCapacity($capacity = null)
     {
-        $this->capacityFrom = $from;
-        $this->capacityTo   = $to;
-
+        $this->capacity = $capacity;
         return $this;
     }
 
@@ -86,22 +75,23 @@ class ApartmentNearbySearchCondition implements ApartmentSearchCondition
     public function decorateQuery(Builder $query)
     {
 
-        if ($this->availabelFrom) {
-            $query->where('available_from', '<', $this->availabelFrom->format('Y-m-d H:i:s'));
+        if ($this->availableFrom) {
+            $query->where('available_from', '<=', $this->availableFrom->format('Y-m-d H:i:s'));
         }
 
-        if ($this->availabelTo) {
-            $query->where('available_to', '>', $this->availabelTo->format('Y-m-d H:i:s'));
+        if ($this->availableTo) {
+            $query->where('available_to', '>=', $this->availableTo->format('Y-m-d H:i:s'));
         }
 
-        if ($this->capacityFrom) {
-            $query->where('capacity_from', '<', $this->capacityFrom);
+        if ($this->capacity) {
+            $query->where('capacity_from', '<=', $this->capacity);
         }
 
-        if ($this->capacityTo) {
-            $query->where('capacity_to', '>', $this->capacityTo);
+        if ($this->capacity) {
+            $query->where('capacity_to', '>=', $this->capacity);
         }
         $boundary = Earth::boundary($this->center->lat(), $this->center->lng(), $this->radius);
+
         $query
             ->where($query->getConnection()->raw('X(location)'), '>', $boundary['minLat'])
             ->where($query->getConnection()->raw('X(location)'), '<', $boundary['maxLat'])
@@ -109,4 +99,36 @@ class ApartmentNearbySearchCondition implements ApartmentSearchCondition
             ->where($query->getConnection()->raw('Y(location)'), '<', $boundary['maxLng'])
         ;
     }
+
+    /**
+     * @param Apartment[] $result
+     * @return Apartment[]|Collection
+     */
+    public function refineResult($result)
+    {
+        if ($result instanceof Collection) {
+            return $result->filter(function (Apartment $apartment)
+            {
+                return Earth::haversineDistance(
+                    $this->center->lat(),
+                    $this->center->lng(),
+                    $apartment->getLocation()->lat(),
+                    $apartment->getLocation()->lng()
+                ) <= $this->radius;
+            });
+        } else {
+            return array_filter($result, function (Apartment $apartment)
+            {
+                return Earth::haversineDistance(
+                    $this->center->lat(),
+                    $this->center->lng(),
+                    $apartment->getLocation()->lat(),
+                    $apartment->getLocation()->lng()
+                ) <= $this->radius;
+            });
+        }
+
+    }
+
+
 }

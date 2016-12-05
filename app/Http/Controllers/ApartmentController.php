@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\HomeStay\Apartment\Apartment;
 use App\HomeStay\Apartment\ApartmentAreaSearchCondition;
+use App\HomeStay\Apartment\ApartmentNearbySearchCondition;
 use App\HomeStay\Apartment\ApartmentRepository;
 use App\HomeStay\Application\ApplicationWorkFlow;
 use App\HomeStay\ReviewingService\ReviewingService;
@@ -162,6 +163,19 @@ class ApartmentController extends Controller
      * @return Collection
      */
     public function search(ApartmentAreaSearchCondition $condition)
+    {
+        $apartments = $this->apartmentRepository->find($condition);
+        $listApartment = [];
+        foreach ($apartments->toArray() as $key => $apartment){
+            $apartmentJson = new ApartmentPresenter($apartment);
+            $listApartment[$key] = $apartmentJson->toJson();
+        }
+        return view('search',[
+            'listApartment' => json_encode($listApartment)
+        ]);
+    }
+
+    public function searchNear(ApartmentNearbySearchCondition $condition)
     {
         $apartments = $this->apartmentRepository->find($condition);
         $listApartment = [];

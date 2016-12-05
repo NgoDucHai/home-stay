@@ -76,7 +76,7 @@
             </article>
         </div>
     </header>
-    <div class="row">
+    <div class="">
         <div class="col-md-12">
             <div class="container">
                 <div class="row"><br>
@@ -113,10 +113,10 @@
                         <h2 class="lobster-font">Liên hệ</h2>
                         <address>
                             <i class="fa fa-user" aria-hidden="true"></i> : <strong>{{$apartmentDetail->owner->name}}</strong>
-                            <br><i class="fa fa-history" aria-hidden="true"></i> : {{$apartmentDetail->owner->age}}
-                            <br><i class="fa fa-phone" aria-hidden="true"></i> :</abbr>{{$apartmentDetail->owner->phone}}
+                            <br><i class="fa fa-history" aria-hidden="true"></i> : <strong>{{$apartmentDetail->owner->age}}</strong>
+                            <br><i class="fa fa-phone" aria-hidden="true"></i> : </abbr><strong>{{$apartmentDetail->owner->phone}}</strong>
                             <br><i class="fa fa-envelope" aria-hidden="true"></i>:</abbr> <a href="mailto:#">{{$apartmentDetail->owner->email}}</a>
-                            <br><i class="fa fa-location-arrow" aria-hidden="true"></i> : Beverly Hills, CA 90210
+                            <br><i class="fa fa-location-arrow" aria-hidden="true"></i> : <strong>58 Tran Binh, Cau Giay, Ha Noi</strong>
                             <br>
                         </address>
                     </div>
