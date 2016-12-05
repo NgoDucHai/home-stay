@@ -61,7 +61,7 @@ abstract class RestController extends Controller
     {
         /** @var Model $model */
         $model = $this->getModelInstance()->where('id', '=', $modelId)->firstOrFail();
-        $model->save(request()->all());
+        $model->update(request()->all());
 
         return $model;
     }

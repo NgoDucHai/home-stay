@@ -13,6 +13,8 @@ class Apartment extends Model
 
     protected $table = 'apartments';
 
+    protected $fillable = ['available_from', 'available_to', 'capacity_from', 'capacity_to', 'images', 'price', 'name', 'city', 'district', 'province'];
+
     protected function getAvailableFromAttribute($value)
     {
         return new Carbon($value);
