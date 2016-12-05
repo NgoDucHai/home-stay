@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\HomeStay\Apartment\Apartment;
 use App\HomeStay\Apartment\ApartmentAreaSearchCondition;
 use App\HomeStay\Apartment\ApartmentRepository;
+use App\HomeStay\Application\ApplicationWorkFlow;
 use App\HomeStay\ReviewingService\ReviewingService;
 use App\Http\Presenters\ApartmentPresenter;
 use Response;
@@ -24,16 +25,21 @@ class ApartmentController extends Controller
      * @var ReviewingService
      */
     protected $reviewingService;
+    /**
+     * @var ApplicationWorkFlow
+     */
+    protected $applicationWorkFlow;
 
     /**
      * ApartmentController constructor.
      * @param ApartmentRepository $apartmentRepository
      * @param ReviewingService $reviewingService
      */
-    public function __construct(ApartmentRepository $apartmentRepository, ReviewingService $reviewingService)
+    public function __construct(ApartmentRepository $apartmentRepository, ReviewingService $reviewingService, ApplicationWorkFlow $applicationWorkFlow)
     {
         $this->apartmentRepository = $apartmentRepository;
         $this->reviewingService = $reviewingService;
+        $this->applicationWorkFlow = $applicationWorkFlow;
     }
 
     /**
@@ -108,7 +114,6 @@ class ApartmentController extends Controller
     public function read($id)
     {
         $apartment = $this->apartmentRepository->get($id);
-
         $reviewsObj = $this->reviewingService->getReviewById($id);
         $reviews = $reviewsObj->map(function ($item) {
             $i['rate'] = $item->getRating()->getValue();

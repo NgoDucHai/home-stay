@@ -42,6 +42,7 @@ Route::group(['middleware' => ['web']], function () {
     ]);
 
     // application
+    Route::get('/application', 'ApplicationController@get');
     Route::post('/application', 'ApplicationController@create');
     Route::get('/sendemail', 'ApplicationController@sendEmial');
     Route::get('/application/{id}', 'ApplicationController@choose');

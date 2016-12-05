@@ -119,11 +119,11 @@ form#search select option {
 }
 
 .red{
-    color:red;
+    color:red !important;
 }
 
 .yellow{
-    color: #FBB448;
+    color: #FBB448 !important;
 }
 
 .login .form-group {

@@ -15,22 +15,33 @@ use Illuminate\Database\Eloquent\Model;
 class Application extends Model
 {
     /**
-     * @param User $applicant
+     * @param $applicantId
      * @return static
      */
-    public function setApplicant(User $applicant)
+    public function setApplicantId($applicantId)
     {
-        $this->setAttribute('user_id', $applicant->getId());
+        $this->setAttribute('user_id', $applicantId);
         return $this;
     }
 
     /**
-     * @param Apartment $apartment
-     * @return self
+     * @param $apartmentId
+     * @return $this
      */
-    public function setApartment(Apartment $apartment)
+    public function setApartmentId($apartmentId)
     {
-        $this->setAttribute('apartment_id', $apartment->getId());
+        $this->setAttribute('apartment_id', $apartmentId);
+
+        return $this;
+    }
+
+    /**
+     * @param $id
+     * @return $this
+     */
+    public function setId($id)
+    {
+        $this->setAttribute('id', $id);
 
         return $this;
     }

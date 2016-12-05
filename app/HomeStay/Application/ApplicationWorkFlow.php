@@ -28,29 +28,60 @@ class ApplicationWorkFlow
     }
 
     /**
-     * @param User $user
-     * @param Apartment $apartment
+     * @param $userId
+     * @param $apartmentId
      * @param $message
-     * @return Application
+     * @return Application $application
      */
-    public function make(User $user, Apartment $apartment, $message)
+    public function make($userId, $apartmentId, $message)
     {
         return with(new Application())
-            ->setApplicant($user)
-            ->setApartment($apartment)
+            ->setApplicantId($userId)
+            ->setApartmentId($apartmentId)
             ->setState(ApplicationState::PENDING)
             ->setMessage($message)
         ;
     }
 
     /**
+     * @param Application $application
+     */
+    public function update(Application $application){
+        DB::table('applications')
+            ->where('id', $application->id)
+            ->update(['state' =>$application->state]);
+    }
+
+    /**
      * @param $id
-     * @return Application $application
+     * @return mixed
      */
     public function getApplicationById($id)
     {
-        $application = DB::table('applications')->where('id', $id)->first();
-        return $application;
+        return DB::table('applications')->where('id', $id)->first();
+    }
+
+    /**
+     * @param $id
+     * @return array|static[]
+     */
+    public function getListApplicationByApartmentId($id)
+    {
+        return DB::table('applications')->where('apartment_id', $id)->get();
+    }
+
+    /**
+     * @param $id
+     * @return array|static[]
+     */
+    public function getListApplicationByUserId($id)
+    {
+        return DB::table('applications')->where('user_id', $id)->get();
+    }
+
+    public function getListApplicationByOwnerId($id)
+    {
+        $apartments = DB::table('apartments')->where('user_id', $id)->get();
     }
 
     /**
@@ -60,17 +91,14 @@ class ApplicationWorkFlow
      */
     public function accept(User $performer, Application $application)
     {
-        if ( ! $this->canAccept($performer, $application))
-        {
-            throw new UnSatisfyApplicationWorkflowException(
-                'User must own the apartment to perform accept action'
-            );
-        }
-
-        $application
-            ->setState(ApplicationState::ACCEPTED)
-            ->save()
-        ;
+//        if ( ! $this->canAccept($performer, $application))
+//        {
+//            throw new UnSatisfyApplicationWorkflowException(
+//                'User must own the apartment to perform accept action'
+//            );
+//        }
+        $application->setState(ApplicationState::ACCEPTED);
+        $this->update($application);
     }
 
     /**
@@ -78,10 +106,8 @@ class ApplicationWorkFlow
      */
     public function cancel(Application $application)
     {
-        $application
-            ->setState(ApplicationState::CANCELLED)
-            ->save()
-        ;
+        $application->setState(ApplicationState::CANCELLED);
+        $this->update($application);
     }
 
     /**
@@ -89,10 +115,8 @@ class ApplicationWorkFlow
      */
     public function deal(Application $application)
     {
-        $application
-            ->setState(ApplicationState::DEAL)
-            ->save()
-        ;
+        $application->setState(ApplicationState::DEAL);
+        $this->update($application);
     }
 
     /**

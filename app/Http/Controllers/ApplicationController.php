@@ -46,17 +46,28 @@ class ApplicationController extends Controller
     {
         $apartmentId = $request->apartmentId;
         $messageUser = $request->message;
-        $user = \Auth::user();
+        $userId = \Auth::user()->getId();
         $apartment = $this->apartmentRepository->get($apartmentId);
-        $application = $this->applicationWorkFlow->make($user, $apartment, $messageUser);
+        $application = $this->applicationWorkFlow->make($userId, $apartmentId, $messageUser);
         $application->save();
         $data = array (
             'bodyMessage' => $messageUser,
-            'url'         => 'http://localhost:8000/application/'.$application->getId()
+            'urlApplication'         => 'http://localhost:8000/application/'.$application->getId()
         );
+
         $this->sendEmail($apartment->getOwner(), $data);
         return Response::json([
             'message' => 'Dat phong thanh cong'
+        ]);
+    }
+
+    public function get()
+    {
+        $user = \Auth::user();
+        $applications = $this->applicationWorkFlow->getListApplicationByUserId($user->getId());
+//        $applicationsOwner = $this->applicationWorkFlow->getListApplicationByOwnerId($user->getId());
+        return view('application',[
+            'applications'       => $applications
         ]);
     }
 
@@ -75,14 +86,11 @@ class ApplicationController extends Controller
 
     public function choose($id)
     {
-        if ($user = \Auth::user()){
-            return redirect('/auth/login');
-        }
-        $application = $this->applicationWorkFlow->getApplicationById($id);
-        $applicant = DB::table('users')->where('id', $application->getUserID())->first();
+        $rawApplication = $this->applicationWorkFlow->getApplicationById($id);
+        $applicant = DB::table('users')->where('id', $rawApplication->user_id)->first();
         return view('choose',[
-            'applicant'     => $applicant,
-            'message'       => $application->getMessage()
+            'user'              => $applicant,
+            'application'       => $rawApplication
         ]);
     }
 
@@ -92,7 +100,10 @@ class ApplicationController extends Controller
      */
     public function accept($id){
         $user = \Auth::user();
-        $application = $this->applicationWorkFlow->getApplicationById($id);
+        $rawApplication = $this->applicationWorkFlow->getApplicationById($id);
+
+        $application = $this->applicationWorkFlow->make($rawApplication->user_id, $rawApplication->apartment_id, $rawApplication->message);
+        $application->setId($id);
         $this->applicationWorkFlow->accept($user, $application);
         return Response::json([
             'message' => 'Accept success'
@@ -104,7 +115,9 @@ class ApplicationController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function cancel($id){
-        $application = $this->applicationWorkFlow->getApplicationById($id);
+        $user = \Auth::user();
+        $rawApplication = $this->applicationWorkFlow->getApplicationById($id);
+        $application = $this->applicationWorkFlow->make($rawApplication->user_id, $rawApplication->apartment_id, $rawApplication->message);
         $this->applicationWorkFlow->cancel($application);
         return Response::json([
             'message' => 'Cancel success'
@@ -116,10 +129,12 @@ class ApplicationController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function deal($id){
-        $application = $this->applicationWorkFlow->getApplicationById($id);
+        $user = \Auth::user();
+        $rawApplication = $this->applicationWorkFlow->getApplicationById($id);
+        $application = $this->applicationWorkFlow->make($rawApplication->user_id, $rawApplication->apartment_id, $rawApplication->message);
         $this->applicationWorkFlow->deal($application);
         return Response::json([
-            'message' => 'Cancel success'
+            'message' => 'Deal success'
         ]);
     }
 
