@@ -18,7 +18,7 @@
                                 <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                                     <label for="name" class=" control-label white">Tên</label>
 
-                                    <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}">
+                                    <input id="name" type="text" class="form-control white" name="name" value="{{ old('name') }}">
 
                                     @if ($errors->has('name'))
                                         <span class="help-block">
@@ -29,7 +29,7 @@
                                 <div class="form-group{{ $errors->has('age') ? ' has-error' : '' }}">
                                     <label for="age" class=" control-label white">Tuổi</label>
 
-                                    <input id="age" type="text" class="form-control" name="age" value="{{ old('age') }}">
+                                    <input id="age" type="text" class="form-control white"  name="age" value="{{ old('age') }}">
 
                                     @if ($errors->has('age'))
                                         <span class="help-block">
@@ -40,7 +40,7 @@
                                 <div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
                                     <label for="name" class=" control-label white">Điện thoại</label>
 
-                                    <input id="phone" type="text" class="form-control" name="phone" value="{{ old('phone') }}">
+                                    <input id="phone" type="text" class="form-control white" name="phone" value="{{ old('phone') }}">
 
                                     @if ($errors->has('phone'))
                                         <span class="help-block">
@@ -54,7 +54,7 @@
                                 <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                                     <label for="email" class="control-label white">E-Mail</label>
 
-                                    <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}">
+                                    <input id="email" type="email" class="form-control white" name="email" value="{{ old('email') }}">
 
                                     @if ($errors->has('email'))
                                         <span class="help-block">
@@ -66,7 +66,7 @@
                                 <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                                     <label for="password" class="control-label white">Password</label>
 
-                                    <input id="password" type="password" class="form-control" name="password">
+                                    <input id="password" type="password" class="form-control white" name="password">
 
                                     @if ($errors->has('password'))
                                         <span class="help-block">
@@ -77,7 +77,7 @@
 
                                 <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
                                     <label for="password-confirm" class="control-label white">Confirm Password</label>
-                                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation">
+                                    <input id="password-confirm" type="password" class="form-control white" name="password_confirmation">
 
                                     @if ($errors->has('password_confirmation'))
                                         <span class="help-block">
@@ -90,7 +90,7 @@
 
                             <div class="form-group{{ $errors->has('description') ? ' has-error' : '' }}">
                                 <label for="description" class=" control-label white">Một vài điều về bản thân</label>
-                                <textarea id="description" class="form-control"  name="description" rows="5"></textarea>
+                                <textarea id="description" class="form-control white"  name="description" rows="5"></textarea>
 
                                 @if ($errors->has('description'))
                                     <span class="help-block">

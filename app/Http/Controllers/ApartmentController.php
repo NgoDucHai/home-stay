@@ -9,6 +9,7 @@ use App\HomeStay\Apartment\ApartmentRepository;
 use App\HomeStay\Application\ApplicationWorkFlow;
 use App\HomeStay\ReviewingService\ReviewingService;
 use App\Http\Presenters\ApartmentPresenter;
+use Auth;
 use Response;
 use Illuminate\Support\Collection;
 
@@ -184,6 +185,27 @@ class ApartmentController extends Controller
             $listApartment[$key] = $apartmentJson->toJson();
         }
         return view('search',[
+            'listApartment' => json_encode($listApartment)
+        ]);
+    }
+
+    public function getApartmentByUserId()
+    {
+        $rawApartments = $this->apartmentRepository->getApartmentByUserId(Auth::user()->getId());
+
+        if ( ! $rawApartments)
+        {
+            return Response::json([
+                'error' => 'E_NOT_FOUND',
+                'message' => "No apartment"
+            ], 404);
+        }
+        $listApartment = [];
+        foreach ($rawApartments->toArray() as $key => $apartment){
+            $apartmentJson = new ApartmentPresenter($apartment);
+            $listApartment[$key] = $apartmentJson->toJson();
+        }
+        return view('apartment-user',[
             'listApartment' => json_encode($listApartment)
         ]);
     }

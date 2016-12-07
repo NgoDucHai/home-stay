@@ -11,7 +11,7 @@ class AdminApiServiceProvider extends ServiceProvider
         /** @var RouterDecorator $decorator */
         $decorator = $this->app->make('admin.route-decorator');
 
-        \Route::group(['prefix' => '/' . config('admin.prefix'), 'middleware' => ['web', AdminOnlyMiddleware::class]], function () use ($decorator) {
+        \Route::group(['prefix' => '/' . config('admin.prefix'), 'middleware' => ['web', 'cors']], function () use ($decorator) {
             $decorator->decorate(config('admin.resources'));
         });
     }

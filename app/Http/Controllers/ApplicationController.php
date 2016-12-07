@@ -101,10 +101,16 @@ class ApplicationController extends Controller
     public function accept($id){
         $user = \Auth::user();
         $rawApplication = $this->applicationWorkFlow->getApplicationById($id);
-
         $application = $this->applicationWorkFlow->make($rawApplication->user_id, $rawApplication->apartment_id, $rawApplication->message);
         $application->setId($id);
         $this->applicationWorkFlow->accept($user, $application);
+        $owner = \DB::table('users')->where('id', $rawApplication->user_id)->first();
+        dd($owner);
+        $data = array (
+            'bodyMessage' => $user->getName().' da dong y yeu cau thue phong cua ban.',
+            'urlApplication'         => 'http://localhost:8000/application/'.$application->getId()
+        );
+        $this->sendEmail($owner, $data);
         return Response::json([
             'message' => 'Accept success'
         ]);

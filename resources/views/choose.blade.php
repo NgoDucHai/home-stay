@@ -60,6 +60,7 @@
                                         <div class="alert alert-DEAL text-center" role="alert">{{$application->state}}</div>
                                     @endif
                                 </div>
+                                <div class="clearfix"></div>
                             </div>
                         </div>
                         <div class="panel-footer border-none">
@@ -77,40 +78,6 @@
                             @endif
                         </div>
                     </div>
-                    {{--<br>--}}
-                    {{--<div class="">--}}
-                        {{--<div class="panel panel-default">--}}
-                            {{--<div class="panel-heading c-list">--}}
-                                {{--<span class="title">Contacts</span>--}}
-                                {{--<ul class="pull-right c-controls">--}}
-                                    {{--<li><a href="#cant-do-all-the-work-for-you" data-toggle="tooltip" data-placement="top" title="Add Contact"><i class="glyphicon glyphicon-plus"></i></a></li>--}}
-                                    {{--<li><a href="#" class="hide-search" data-command="toggle-search" data-toggle="tooltip" data-placement="top" title="Toggle Search"><i class="fa fa-ellipsis-v"></i></a></li>--}}
-                                {{--</ul>--}}
-                            {{--</div>--}}
-                            {{--<ul class="list-group" id="contact-list">--}}
-                                {{--@if ($applications)--}}
-                                    {{--@foreach ($applications as $r => $application)--}}
-                                        {{--<li class="list-group-item">--}}
-                                            {{--<div class="col-xs-12 col-sm-3">--}}
-                                                {{--<img src="http://api.randomuser.me/portraits/men/49.jpg" alt="Scott Stevens" class="img-responsive img-circle" />--}}
-                                            {{--</div>--}}
-                                            {{--<div class="col-xs-12 col-sm-9">--}}
-                                                {{--<span class="name">Scott Stevens</span><br/>--}}
-                                                {{--<span class="glyphicon glyphicon-map-marker text-muted c-info" data-toggle="tooltip" title="5842 Hillcrest Rd"></span>--}}
-                                                {{--<span class="visible-xs"> <span class="text-muted">5842 Hillcrest Rd</span><br/></span>--}}
-                                                {{--<span class="glyphicon glyphicon-earphone text-muted c-info" data-toggle="tooltip" title="(870) 288-4149"></span>--}}
-                                                {{--<span class="visible-xs"> <span class="text-muted">(870) 288-4149</span><br/></span>--}}
-                                                {{--<span class="fa fa-comments text-muted c-info" data-toggle="tooltip" title="scott.stevens@example.com"></span>--}}
-                                                {{--<span class="visible-xs"> <span class="text-muted">scott.stevens@example.com</span><br/></span>--}}
-                                            {{--</div>--}}
-                                            {{--<div class="clearfix"></div>--}}
-                                        {{--</li>--}}
-                                    {{--@endforeach--}}
-                                {{--@endif--}}
-
-                            {{--</ul>--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
                 </div>
             </article>
         </div>

@@ -75,4 +75,10 @@ class ApartmentRepository
     {
         return $this->engine->destroy($id);
     }
+
+    public function getApartmentByUserId($userId)
+    {
+        $rawData = $this->engine->buildQuery()->where('user_id', $userId)->get();
+        return $rawData ? $this->factory->factoryList($rawData) : null;
+    }
 }

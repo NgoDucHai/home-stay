@@ -9,7 +9,8 @@
         "laravel/framework": "5.2.*",
         "barryvdh/laravel-ide-helper": "^2.2",
         "doctrine/dbal": "^2.5",
-        "fzaninotto/faker": "^1.6"
+        "fzaninotto/faker": "^1.6",
+        "barryvdh/laravel-cors": "^0.8.2"
     },
     "require-dev": {
         "mockery/mockery": "0.9.*",

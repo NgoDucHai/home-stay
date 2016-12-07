@@ -30,7 +30,7 @@
                         <ul class="dropdown">
                             <li><a href="{{ url('/profile') }}">
                                     <i class="fa fa-btn fa-user"></i> Profile</a></li>
-                            <li><a href="{{ url('#') }}"><i class="fa fa-home" aria-hidden="true"></i> My homestay</a>
+                            <li><a href="{{ url('/apartment/user/') }}"><i class="fa fa-home" aria-hidden="true"></i> My homestay</a>
                             </li>
                             <li><a href="{{ url('add') }}"><i class="fa fa-plus-circle" aria-hidden="true"></i> Create homestay</a></li>
                             <li><a href="{{ url('auth/logout') }}"><i class="fa fa-btn fa-sign-out"></i> Logout</a></li>

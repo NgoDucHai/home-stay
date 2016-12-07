@@ -18,6 +18,7 @@
                 </div>
                 <div class="col-md-6">
                     <h2 class="lobster-font" style="color: #FBB448;">Information</h2>
+                    <input type="text" name="user_id" id="user_id" class="hidden" value="{{Auth::user()->id}}">
                     <div class="form-group">
                         <label for="name" class="white">Name:</label>
                         <input type="text" class="form-control white" name="name" id="name" placeholder="Name" required>
@@ -218,7 +219,7 @@
 
                     apartmentRaw.images = imagesList[0];
                 }
-                apartmentRaw.user_id = 1;
+//                apartmentRaw.user_id = 1;
                 apartmentRaw.lat = location[0];
                 apartmentRaw.lng = location[1];
 

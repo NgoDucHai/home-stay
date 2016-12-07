@@ -20,6 +20,7 @@ Route::group(['middleware' => ['web']], function () {
     });
     //    apartment
     Route::get('/apartments', 'ApartmentController@index');
+    Route::get('/apartment/user', 'ApartmentController@getApartmentByUserId');
 
     Route::get('/apartment/{id}', ['as'=>'apartment.read','uses'=>'ApartmentController@read']);
 
