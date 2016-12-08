@@ -95,7 +95,6 @@
             $.ajax({type: "GET",
                 url: "http://freegeoip.net/json/",
                 success:function(data) {
-                    console.log(data);
                     $('#searchNear').append('<input type="hidden" name="lat" value="'+ data.latitude +'">');
                     $('#searchNear').append('<input type="hidden" name="lng" value="'+ data.longitude +'">');
                 }

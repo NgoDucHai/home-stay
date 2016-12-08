@@ -4,6 +4,7 @@
 use App\Http\Middleware\searchApartmentMiddleware;
 use App\Http\Middleware\searchNearApartmentMiddleware;
 use App\Http\Middleware\storeApartmentMiddleware;
+use App\Http\Middleware\updateApartmentMiddleware;
 
 Route::group(['middleware' => ['web']], function () {
 
@@ -27,6 +28,11 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('/apartment',[
         'middleware' => storeApartmentMiddleware::class,
         'uses'       => 'ApartmentController@store'
+    ]);
+
+    Route::post('/apartment/{id}/edit',[
+        'middleware' => updateApartmentMiddleware::class,
+        'uses'       => 'ApartmentController@update'
     ]);
 
     Route::get('/apartment/{id}/edit', 'ApartmentController@edit');

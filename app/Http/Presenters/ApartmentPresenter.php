@@ -38,8 +38,8 @@ class ApartmentPresenter implements Jsonable
             'price'         => $this->apartment->getPrice(),
             'images'        => $this->apartment->getImages(),
             'availabilities' => [
-                'from' => $this->apartment->getAvailabilities()[0]->getTimestamp(),
-                'to' => $this->apartment->getAvailabilities()[1]->getTimestamp(),
+                'from' => $this->apartment->getAvailabilities()[0],
+                'to' => $this->apartment->getAvailabilities()[1],
             ],
             'capacities' => [
                 'from' => $this->apartment->getCapacity()[0],

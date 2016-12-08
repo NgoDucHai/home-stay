@@ -87,6 +87,16 @@ class ApartmentController extends Controller
         ], 200);
     }
 
+    public function update(Apartment $apartment, $id)
+    {
+        $apartment->setId($id);
+        $this->apartmentRepository->save($apartment);
+        return Response::json([
+            'state'   =>  "Ok",
+            'message' => "Update apartments ",
+            'id'      => $apartment->getId()
+        ], 200);
+    }
     /**
      * show form editing for a apartment
      * @param $id
@@ -103,8 +113,12 @@ class ApartmentController extends Controller
                 'message' => "No apartments with id [$id] was found"
             ], 404);
         }
-
-        return new ApartmentPresenter($apartment);
+        $apartmentDetail =  new ApartmentPresenter($apartment);
+//        dd(json_decode($apartmentDetail->toJson()));
+        return view('edit',[
+            'apartmentDetail' => json_decode($apartmentDetail->toJson()),
+            'user' => \Auth::user()
+        ]);
     }
 
     /**

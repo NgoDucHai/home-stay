@@ -119,6 +119,9 @@
                             <br><i class="fa fa-location-arrow" aria-hidden="true"></i> : <strong>58 Tran Binh, Cau Giay, Ha Noi</strong>
                             <br>
                         </address>
+                        @if(Auth::user()->id == $apartmentDetail->owner->id)
+                            <a class="btn btn-primary btn-block tinos-font" href="/apartment/{{$apartmentDetail->id}}/edit" role="button">Edit Apartment</a>
+                        @endif
                     </div>
                 </div>
 

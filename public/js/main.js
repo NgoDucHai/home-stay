@@ -310,10 +310,7 @@
 		$('#time').datetimepicker({
 			format: 'LT'	
 		});
-
-		
 	};
-
 	var parallax = function() {
 
 		if ( !isMobile.any() ) {
