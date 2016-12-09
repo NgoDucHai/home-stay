@@ -72,7 +72,7 @@ abstract class RestController extends Controller
      */
     public function delete($modelId)
     {
-        $model = $this->getModelInstance()->firstOrFail($modelId);
+        $model = $this->getModelInstance()->where('id', '=', $modelId)->firstOrFail($modelId);
         $model->delete();
 
         return $model;

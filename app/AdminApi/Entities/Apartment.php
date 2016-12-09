@@ -58,7 +58,7 @@ class Apartment extends Model
     {
         return array_first(static::$locationMetadata['districts'], function ($index, $district) use ($districtId)
         {
-            return $district->id == intval($districtId);
+            return $district->code == intval($districtId);
         });
     }
 
@@ -66,7 +66,7 @@ class Apartment extends Model
     {
         return array_first(static::$locationMetadata['provinces'], function ($index, $province) use ($provinceId)
         {
-            return $province->id == intval($provinceId);
+            return $province->code == intval($provinceId);
         });
     }
 
@@ -76,7 +76,6 @@ class Apartment extends Model
         $city = $this->getAttribute('city');
         $district = $this->getAttribute('district');
         $province = $this->getAttribute('province');
-
         $formattedAddress = [];
 
         if ($province) {
