@@ -13,7 +13,7 @@ class Apartment extends Model
 
     protected $table = 'apartments';
 
-    protected $fillable = ['available_from', 'available_to', 'capacity_from', 'capacity_to', 'images', 'price', 'name', 'city', 'district', 'province'];
+    protected $fillable = ['available_from', 'available_to', 'capacity_from', 'capacity_to', 'images', 'price', 'name', 'city', 'district', 'province', 'description'];
 
     protected function getAvailableFromAttribute($value)
     {
@@ -130,4 +130,5 @@ class Apartment extends Model
             'images' => $this->getAttribute('images')
         ];
     }
+
 }

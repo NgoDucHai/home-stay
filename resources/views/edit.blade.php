@@ -282,7 +282,7 @@
                 var $createApartment = $.post(formSubmit.attr('action'), apartmentRaw);
                 $createApartment.then(function (response) {
                     alert (response.message);
-                    window.location.replace('/apartment/'+response.id);
+//                    window.location.replace('/apartment/'+response.id);
                 });
 
             });

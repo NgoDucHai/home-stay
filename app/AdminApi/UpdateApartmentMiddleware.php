@@ -1,22 +1,31 @@
 <?php
 
-namespace App\Http\Middleware;
+namespace App\AdminApi;
 
-use App\HomeStay\Apartment\ApartmentFactory;
-use Closure;
 use Illuminate\Http\Request;
 use Validator;
 
-class updateApartmentMiddleware
+/**
+ * Class AdminOnlyMiddleware
+ * @package App\AdminApi
+ */
+class UpdateApartmentMiddleware
 {
+
     /**
-     * Handle an incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
-     * @return mixed
+     * UpdateApartmentMiddleware constructor.
      */
-    public function handle(Request $request, Closure $next)
+    public function __construct()
+    {
+    }
+
+    /**
+     * @param Request $request
+     * @param \Closure $next
+     * @return mixed
+     * @throws AdminOnlyException
+     */
+    public function handle(Request $request, \Closure $next)
     {
         /** @var Validator $validator */
         $validator = $this->makeValidator($request);
@@ -27,27 +36,19 @@ class updateApartmentMiddleware
                 'message' => $validator->errors()->all()
             ]);
         }
-        $apartment = $this->makeApartment($request);
-        app()->bind(get_class($apartment), function () use ($apartment) {
-            return $apartment;
-        });
+
+
         return $next($request);
     }
 
-    public function makeApartment(Request $request)
-    {
-        $apartmentFactory = new ApartmentFactory();
-        return $apartmentFactory->factoryRequest($request->all());
-
-    }
 
     public function makeValidator(Request $request)
     {
         $rule = [
             'name'              => 'required|max:255',
             'description'       => 'required',
-            'available_from'    => 'required|date_format:d-m-Y',
-            'available_to'      => 'required|date_format:d-m-Y|after:available_from',
+            'available_from'    => 'required',
+            'available_to'      => 'required|after:available_from',
             'capacity_from'     => 'required|min:1',
             'capacity_to'       => 'required|min:capacity_from',
             'price'             => 'required'

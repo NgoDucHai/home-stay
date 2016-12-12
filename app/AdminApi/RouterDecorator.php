@@ -37,7 +37,7 @@ class RouterDecorator
             $this->router->post("/{$resource}", "{$controller}@create");
             $this->router->get("/{$resource}/{id}", "{$controller}@detail");
             $this->router->delete("/{$resource}/{id}", "{$controller}@delete");
-            $this->router->put("/{$resource}/{id}", "{$controller}@update");
+            $this->router->post("/{$resource}/{id}", "{$controller}@update");
         }
     }
 }

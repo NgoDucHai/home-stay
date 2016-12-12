@@ -10,6 +10,10 @@ use App\AdminApi\Entities\Apartment;
  */
 class ApartmentController extends RestController
 {
+    public function __construct()
+    {
+        $this->middleware('updateApartment')->only('update');
+    }
     /**
      * @return string
      */
